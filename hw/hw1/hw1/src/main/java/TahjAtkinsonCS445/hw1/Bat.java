@@ -11,6 +11,7 @@ public class Bat extends Creature implements Flyer {
 	public void move() {
 		// TODO Auto-generated method stub
 		this.fly();
+		
 	}
 	
 	

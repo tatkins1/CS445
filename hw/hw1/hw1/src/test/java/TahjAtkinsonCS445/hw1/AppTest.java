@@ -1,12 +1,7 @@
 package TahjAtkinsonCS445.hw1;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-
 public class AppTest {
-
 	@Test
 	public void TestToString(){
 		Ant ant1 = new Ant("ant1");
@@ -43,5 +38,4 @@ public class AppTest {
 		fly1.eat(rock);
 		assertEquals("bat1.lastmeal should be rock", rock, fly1.lastmeal);
 	}
-	
 }
