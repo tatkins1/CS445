@@ -1394,3 +1394,11 @@
 2017-09-28 03:38:27,756 [Worker-22] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw2/src/main/resources
 2017-09-28 03:38:27,758 [Worker-22] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2017-09-28 03:38:27,758 [Worker-22] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw2/src/test/resources
+2017-09-28 03:44:37,959 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-09-28 03:44:37,960 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw1/hw1/src/main/resources
+2017-09-28 03:44:37,961 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-09-28 03:44:37,961 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw1/hw1/src/test/resources
+2017-09-28 03:44:37,967 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-09-28 03:44:37,967 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw2/src/main/resources
+2017-09-28 03:44:37,968 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-09-28 03:44:37,969 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/tahjatkinson/Desktop/School IIT/CS/CS 445/hw/hw2/src/test/resources
