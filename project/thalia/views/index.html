@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TA-CS445-Proj </title>
+</head>
+
+<body>
+    <h1>Fall 2017 CS 445 Thalia Project</h1>
+    <ul>
+        <li>wid: show id</li>
+        <li>sid: section id</li>
+        <li>cid: seat (chair) id</li>
+        <li>oid: order id</li>
+        <li>tid: ticket id</li>
+        <li>mrid: manager report id</li>
+    </ul>
+    <a name="main"></a>
+    <ul>
+        <a name="shows_top"></a>
+        <li><a href="#shows">Shows</a></li>
+        <ul>
+            <li><a href="#shows_create_show">Create show</a> ( POST /shows )</li>
+            <li><a href="#shows_update_show">Update show</a> ( PUT /shows/{wid} )</li>
+            <li><a href="#shows_view_show">View show</a> ( GET /shows/{wid} )</li>
+            <li><a href="#shows_view_all_shows">View all shows</a> ( GET /shows )</li>
+            <li>[*] <a href="#shows_delete_show">Delete show</a> ( DELETE /shows/{wid} )</li>
+            <li>
+                <a href="#shows_view_sections">View show sections</a> ( GET /shows/{wid}/sections )
+            </li>
+        </ul>
+        <a name="seating_top"></a>
+        <li><a href="#seating">Seating</a></li>
+        <ul>
+            <li>[*] <a href="#seating_create_section">Create section</a> ( POST /seating )</li>
+            <li>[*] <a href="#seating_update_section">Update section</a> ( PUT /seating/{sid} )</li>
+            <li>[*] <a href="#seating_delete_section">Delete section</a> ( DELETE /seating/{sid} )</li>
+            <li>
+                <a href="#seating_request_seats_auto">Request seats auto</a> ( GET /seating?show={wid}&amp;section={sid}&amp;count=[0-9]+ )
+            </li>
+            <li>
+                <a href="#seating_request_specific_seats">Request specific seats</a> ( GET /seating?show={wid}&amp;section={sid}&amp;seats=[{cid}, {cid}, ...] )
+            </li>
+            <li>
+                <a href="#seating_view_specific_section">View specific section</a> ( GET /seating/{sid} )
+            </li>
+        </ul>
+        <a name="orders_top"></a>
+        <li><a href="#orders">Orders</a></li>
+        <ul>
+            <li><a href="#orders_create_order">Create order</a> ( POST /orders )</li>
+            <li><a href="#orders_view_all_orders">View all orders</a> ( GET /orders )</li>
+            <li><a href="#orders_view_orders_by_date">View orders by_date</a> ( GET /orders?start_date=YYYYMMDD&amp;end_date=YYYYMMDD )
+            </li>
+            <li><a href="#orders_view_order">View order</a> ( GET /orders/{oid} )</li>
+            <li>[*] <a href="#orders_update_order">Update order</a> ( PUT /orders/{oid} )</li>
+            <li>[*] <a href="#orders_delete_order">Delete order</a> ( DELETE /orders/{oid} )</li>
+        </ul>
+        <a name="tickets_top"></a>
+        <li><a href="#tickets">Tickets</a></li>
+        <ul>
+            <li><a href="#tickets_view_ticket">View ticket</a> ( GET /tickets/{tid} )</li>
+            <li><a href="#tickets_update_ticket">Update ticket (donate, scan)</a> ( PUT /tickets/{tid} )</li>
+            <li>[*] <a href="#tickets_view_all_tickets">View all tickets</a> ( GET /tickets )</li>
+            <li>[*] <a href="#tickets_delete_ticket">Delete ticket</a> ( DELETE /tickets/{tid} )</li>
+        </ul>
+        <a name="reports_top"></a>
+        <li><a href="#reports">Reports</a></li>
+        <ul>
+            <li><a href="#reports_get_reports_list">Get list of available reports</a> ( GET /reports )</li>
+            <li><a href="#reports_get_report">Get report</a> ( GET /reports/{mrid} )</li>
+            <li>
+                <a href="#reports_get_report_by_date_range">Get report by date range</a> ( GET /reports/{mrid}[?start_date=YYYYMMDD&amp;end_date=YYYYMMDD] )
+            </li>
+        </ul>
+        <a name="search_top"></a>
+        <li><a href="#search">Search</a></li>
+        <ul>
+            <li><a href="#search">Search</a> ( GET /search?topic=topicword&amp;key=keyword )</li>
+        </ul>
+    </ul>
+    <hr>
+</body>
+
+</html>
