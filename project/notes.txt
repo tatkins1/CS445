@@ -1,0 +1,12 @@
+Entity List
+Theatre
+Seat 
+Row
+Section
+Patron
+Show
+Manager
+CSR
+Ticket
+Order
+Employee
