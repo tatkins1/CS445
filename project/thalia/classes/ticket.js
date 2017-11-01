@@ -1,5 +1,5 @@
 class Ticket {
-    constructor(id, seat,show, price) {
+    constructor(id, seat, show, price) {
         this.id = id; //generateId();
         this.seat = seat;
         this.show = show;
@@ -35,7 +35,7 @@ class Ticket {
     }
 
     donate() {
-    		var status=this.getStatus();
+        var status = this.getStatus();
         if (status == 0) {
             this.setStatus(1);
             return true;

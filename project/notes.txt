@@ -29,17 +29,23 @@ check if lucky
 load show
 edit show
 get report
+use ticket
 
 
 Questions:
 When using non typed languages dependency inversion seems to solve less problems. also since js doesn't need to be compiled
+Ans: Still helps.
 
 should everythign be classes? not just objects
-should an attribute reference an id which is be mapped to an instance of a class?
+should an attribute reference an id which is be mapped to an instance of a class? Should a manager be able to load shows? should the manager class have a loadshow,edit show method? or should the theatre class have these methods. Should I have a theatre class? view show , request seats are methods for the customer... right?
 
-Should a manager be able to load shows? should the manager class have a loadshow,edit show method? or should the theatre class have these methods. Should I have a theatre class? view show , request seats are methods for the customer... right?
+Ans: There are two types of class. entities which should be intuitive resusable classes as well as use cases or interactor objects.
+
 
 facade:
 Would having the theatre object having all the methods and having the patron interface having some of those methods that uses the instance of theatre a facade?
 
 Observer:
+
+
+Query/Set rule with the Ticket.use() function...is it that the use() is a use case and the query set only apply to more basic functions

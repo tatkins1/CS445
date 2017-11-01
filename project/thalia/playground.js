@@ -4,3 +4,9 @@ array.forEach(function(el) {
 	sum=sum+el;
 });
 console.log(sum);
+
+class TestClass{
+
+}
+let tc= new TestClass();
+console.log(tc.constructor.name);
