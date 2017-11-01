@@ -5,7 +5,18 @@ class Show {
 		this.date;
 		this.time;
 		this.sections;
-		
+
+
+	}
+	getPrice(){
+
+	}
+	setPrice(price){
+
+	}
+		//getters and setters for everything
+
+	getTimeUntil(){
 
 	}
 }
