@@ -49,3 +49,8 @@ Observer:
 
 
 Query/Set rule with the Ticket.use() function...is it that the use() is a use case and the query set only apply to more basic functions
+
+Should classes represent physical implimentation?
+Should there be one instance of seat for each seat thats in the theatre?
+Should there be one instance of seat for each seat in a show? more likely because a seats availabilty depends on the show.
+Should fulfilling the seats and use cases be done with class objects or can a matrix implimentation be fine?
