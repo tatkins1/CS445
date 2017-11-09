@@ -9,4 +9,5 @@ describe("Show", function() {
     it(" set price", function() {
 
     });
+    console.log("ShowSpec.js ran!");
 });

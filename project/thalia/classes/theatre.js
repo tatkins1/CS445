@@ -4,7 +4,7 @@ class Theatre {
         this.name = name;
         this.shows = {}; // map of shows
         this.section_layout = section_layout;
-        this.layout_map=layout_map;
+        this.layout_map = layout_map;
 
     }
     getShows() {
@@ -12,16 +12,17 @@ class Theatre {
     }
     getShow(show_id) {
         let show = null;
-        Object.values(this.shows).forEach(function(e) {
-            if (e.show_id == show_id) {
-                show = e;
+        let shows = Object.values(this.shows);
+        for (let i = 0; i < shows.length; i++) {
+            if (shows[i].show_id == show_id) {
+                return shows[i];
             }
-        });
-        return show;
+        }
+
 
     }
     addShow(show_object) {
-        this.shows[show_object.showid]=show_object;
+        this.shows[show_object.showid] = show_object;
 
     }
     editShow(show_ID, show_object) {
@@ -29,4 +30,4 @@ class Theatre {
     }
 
 }
-module.exports=Theatre;
+module.exports = Theatre;

@@ -54,3 +54,13 @@ Should classes represent physical implimentation?
 Should there be one instance of seat for each seat thats in the theatre?
 Should there be one instance of seat for each seat in a show? more likely because a seats availabilty depends on the show.
 Should fulfilling the seats and use cases be done with class objects or can a matrix implimentation be fine?
+
+should i have logic in the restinterface at the api endpoint? or should i have a super object that represents the system so that the software can be deployed anywhere?
+
+can i use 4 way state machine for ticket, created-bought-used or created-bought-donated-used?
+
+should i have getAvailable() seats in section? and just bubble down calls from show.getavailable(sid)....so show.getavailable would call section.getavailable? 
+or should all the logic be in show.getavailable? or even person.getavailableshows()?
+
+
+

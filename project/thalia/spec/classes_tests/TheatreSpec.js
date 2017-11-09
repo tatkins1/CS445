@@ -45,13 +45,27 @@ describe("Theatre", function() {
     it("Should be able to get all Shows", function() {
         var show = { "showid": "001", "name": "Alice in Wonderland" };
         theatre.addShow(show);
-        console.log(theatre.getShows());
-        expect(theatre.shows[show.showid].name).toEqual("Alice in Wonderland");
+        expect(theatre.getShows()).toEqual(["Alice in Wonderland"]);
+
+    });
+    it("Should be able to get show by showID", function() {
+        var show = { "showid": "001", "name": "Alice in Wonderland" };
+        theatre.addShow(show);
+        theatre.getShow(show.showid);
+        expect(theatre.getShow().name).toEqual(show.name);
+
+    });
+    it("Should be able to edit show", function() {
+        var show = { "showid": "001", "name": "Alice in Wonderland" };
+        var show2 = { "showid": "002", "name": "GOT" };
+
+        theatre.addShow(show);
+        theatre.editShow(show.showid, show2);
 
     });
 
 
-
+    console.log("TheatreSpec.js ran!");
 
 
 
