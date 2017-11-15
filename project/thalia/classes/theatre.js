@@ -1,5 +1,5 @@
 class Theatre {
-    //refactor to 
+    //refactor to singleton
     constructor(name, section_layout, layout_map) {
         this.name = name;
         this.shows = {}; // map of shows
@@ -8,21 +8,25 @@ class Theatre {
 
     }
     getShows() {
-        return Object.values(this.shows).map(e => e.name);
+        return Object.values(this.shows);
     }
     getShow(show_id) {
-        let show = null;
-        let shows = Object.values(this.shows);
-        for (let i = 0; i < shows.length; i++) {
-            if (shows[i].show_id == show_id) {
-                return shows[i];
-            }
+        if (this.shows[show_id]) {
+            return this.shows[show_id];
+        } else {
+            return null;
         }
 
 
     }
+    getLayout() {
+        return this.section_layout;
+    }
+    editLayout(newlayout) {
+        this.section_layout = newlayout;
+    }
     addShow(show_object) {
-        this.shows[show_object.showid] = show_object;
+        this.shows[show_object.id] = show_object;
 
     }
     editShow(show_ID, show_object) {

@@ -1,24 +1,41 @@
-class Patron{
-	constructor(name){
-		this.name=name;
-	}
-	viewShows(){
-		//global variable singleton theatre? 
-	}
-	viewShow(showid){
 
-	}
-	viewSections(){
+class Patron {
+    constructor(id, name) {
+        this.name = name;
+        this.id=id;
+    }
+    viewShows(theatre) {
 
-	}
-	requestSeats(){
+        return theatre.getShows().map(e => e.name);
+    }
+    viewShow(theatre, show_id) {
+        let show = theatre.getShow(show_id);
+        let response = { "wid": show.id, "show_info": show.show_info, "seating_info": show.seating_info };
+        return response;
 
-	}
-	requestSeat(){
+    }
+    viewSectionsOfShow(show) {// should pass theatre and show_id? or show?
+    	return show.getSections();
+    }
+    viewAvailableSeats(show) {
 
-	}
-	purchaseSeats(seat_array){
+    }
+    requestSeats(show, sid, num_seats) {
 
-	}
+    }
+    purchaseSeats(show,sid, seat_array) {
+        for (let i = 0; i < seat_array.length; i++) {
+            if(!section.isSeatAvailable(seat_array[i])){
+                return null;
+            } 
+            
+        }
+        return seat_array.map(e => {
+            return new Ticket(e,show, section.getPrice());
+        });
+         
+
+
+    }
 }
 module.exports = Patron;

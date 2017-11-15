@@ -1,14 +1,27 @@
 describe("Order", function() {
     var Order = require('../../classes/order');
     var Ticket = require('../../classes/ticket');
+    var Patron = require('../../classes/patron');
+    var showIDgenerator = require("../../classes/showIDgenerator");
+    var ticketIDgenerator = require("../../classes/ticketIDgenerator");
+    var patronIDgenerator = require("../../classes/patronIDgenerator");
+    var orderIDgenerator = require("../../classes/orderIDgenerator");
+
 
     console.log("OrderSpec.js ran!");
-    let ticket_array = [];
-    for (let i = 0; i < 3; i++) {
-        ticket_array.push(new Ticket(i, "seat" + i, "GOT", 20));
-    }
+
     beforeEach(function() {
-        order = new Order(1, ticket_array, "patronObject");
+        
+        PID = new patronIDgenerator();
+        OID = new orderIDgenerator();
+        TID = new ticketIDgenerator();
+        let ticket_array = [];
+        for (let i = 0; i < 3; i++) {
+            ticket_array.push(new Ticket(TID.generate(), "seat" + i, "GOT", 20));
+        }
+        patron = new Patron(PID.generate(), "Hamze");
+        order = new Order(OID.generate(), ticket_array, patron);
+
     });
     it("should be able to getTotal", function() {
 

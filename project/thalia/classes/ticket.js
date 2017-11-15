@@ -1,7 +1,7 @@
 class Ticket {
-    constructor(id, seat, show, price) {
-        this.id = id; //generateId();
-        this.seat = seat;
+    constructor(id, seatid, show, price) {
+        this.id = id; //generateId(); //showid+sectionid+row-colum
+        this.seatid = seatid;
         this.show = show;
         this.price = price;
         this.order = null;

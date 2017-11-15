@@ -9,7 +9,7 @@ describe("Section", function() {
         section = new Section(layout, 100);
     });
     it("Should get available seating", function() {
-        console.log(section.getAvailableSeats());
+        //console.log(section.getAvailableSeats());
 
     });
     it("Should get be able to get seat", function() {

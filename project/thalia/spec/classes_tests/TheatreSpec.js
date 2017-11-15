@@ -1,4 +1,5 @@
 describe("Theatre", function() {
+    var showIDgenerator = require("../../classes/showIDgenerator");
     var Theatre = require("../../classes/theatre");
     var theatre_layout = {
         "001": {
@@ -45,7 +46,7 @@ describe("Theatre", function() {
     it("Should be able to get all Shows", function() {
         var show = { "showid": "001", "name": "Alice in Wonderland" };
         theatre.addShow(show);
-        expect(theatre.getShows()).toEqual(["Alice in Wonderland"]);
+        expect(theatre.getShows()[0].name).toEqual("Alice in Wonderland");
 
     });
     it("Should be able to get show by showID", function() {

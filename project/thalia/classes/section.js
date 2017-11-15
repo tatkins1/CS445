@@ -11,7 +11,7 @@ class Section {
     */
     constructor(section_layout, price) {
         this.name = section_layout.name;
-        this.id = section_layout.id;
+        this.sid = section_layout.sid;
         this.seats = makeSeats(section_layout.layout);
         this.price = price;
 
@@ -41,14 +41,13 @@ class Section {
         this.price=price;
     }
     getId() {
-        return this.id;
+        return this.sid;
     }
     getAvailableSeats() {
         let str = "";
         for (let i = 0; i < this.seats.length; i++) {
             for (let j = 0; j < this.seats[i].length; j++) {
                 if (this.seats[i][j] == 1) {
-                    //console.log(alphabet[i],j);
                     var k = j + 1;
                     str = str + alphabet[i] + "-" + k + ", ";
                 }

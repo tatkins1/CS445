@@ -18,3 +18,22 @@ class TestClass {
 let tc = new TestClass();
 console.log(tc.constructor.name);
 
+
+class IDg{
+	constructor(seed=""){
+		this.seed=seed;
+		this.counter=0;
+	}
+	generate(){
+		this.counter+=1;
+		return this.seed + this.counter;
+	}
+}
+ var idg = new IDg();
+ var idg2 = new IDg("Ticket");
+ console.log(idg2.generate());
+ console.log(idg.generate());
+ idg2.generate();
+ idg2.generate();
+ idg2.generate();
+ console.log(idg2.generate());

@@ -1,10 +1,72 @@
 describe("Patron", function() {
     var Patron = require('../../classes/patron');
     var Theatre = require('../../classes/theatre');
+    var Show = require('../../classes/show');
+    var showIDgenerator = require("../../classes/showIDgenerator");
+    var ticketIDgenerator = require("../../classes/ticketIDgenerator");
+    var patronIDgenerator = require("../../classes/patronIDgenerator");
+    var orderIDgenerator = require("../../classes/orderIDgenerator");
+
+    var theatre_layout = {
+        "001": {
+            "name": "Front right",
+            "sid": "001",
+            "layout": [4, 4, 4, 4]
+        },
+        "002": {
+            "name": "Front centre",
+            "sid": "002",
+            "layout": [4, 4, 5, 6]
+        },
+        "003": {
+            "name": "Front left",
+            "sid": "003",
+            "layout": [4, 4, 4, 4]
+        },
+        "004": {
+            "name": "Main right",
+            "sid": "004",
+            "layout": [5, 5, 5]
+        },
+        "005": {
+            "name": "Main centre",
+            "sid": "005",
+            "layout": [6, 7, 8]
+        },
+        "006": {
+            "name": "Main left",
+            "sid": "006",
+            "layout": [5, 5, 5]
+        }
+
+    }
+    var show_info = {
+        "name": "King Lear",
+        "web": "http://www.example.com/shows/king-lear",
+        "date": "2017-12-05",
+        "time": "13:00"
+    };
+    var seating_info = [{
+            "sid": "001",
+            "price": 600
+        },
+        {
+            "sid": "002",
+            "price": 75
+        },
+        {
+            "sid": "003",
+            "price": 60
+        }
+    ];
     console.log("PatronSpec.js ran!");
     beforeEach(function() {
-        theatre = new Theatre('Thalia', 'layout');
-        patron = new Patron('Jill');
+        SID = new showIDgenerator();
+        PID = new patronIDgenerator();
+        patron = new Patron(PID.generate(), 'Jill');
+        theatre = new Theatre('Thalia', theatre_layout, {});
+        show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
+
     });
     it("should be able to purchaseSeats", function() {
         patron.purchaseSeats([]);
@@ -12,8 +74,19 @@ describe("Patron", function() {
     it("should be able to useTickets", function() {
         patron.useTickets([]);
     });
+    it("should be able to viewSections of show", function() {
+        expect(patron.viewSectionsOfShow(show)).toEqual(show.sections);
+    });
     it("should be able to viewShows", function() {
-        patron.viewShows(theatre);
+
+        expect(patron.viewShows(theatre)).toEqual([]);
+        theatre.addShow(show);
+        expect(patron.viewShows(theatre)).toEqual([show.name]);
+    });
+    it("should be able to viewShow", function() {
+        theatre.addShow(show);
+        //console.log(patron.viewShow(theatre, show.id));
+        expect(patron.viewShow(theatre, show.id)).toEqual({ "wid": show.id, "show_info": show_info, "seating_info": seating_info });
     });
     it("should be able to viewSeats", function() {
         patron.viewSeats(show);
