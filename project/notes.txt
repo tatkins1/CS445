@@ -63,4 +63,11 @@ should i have getAvailable() seats in section? and just bubble down calls from s
 or should all the logic be in show.getavailable? or even person.getavailableshows()?
 
 
+Should I generate a ticket for each seat or should I generate a ticket for a seat that someone bought?
+
+
+Should I create show object and then add shows to theatre or should add show to theatre take all show info and create object
+
+Passing IDs as arguments vs class instances
+purchase seats. should i pass the the show object and the section object or the show object and show id? alternately should I pass the theatre object then show and section ids? 
 
