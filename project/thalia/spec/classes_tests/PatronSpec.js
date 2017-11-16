@@ -68,8 +68,12 @@ describe("Patron", function() {
         show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
 
     });
+    it("should be able to requestSeats", function() {
+        patron.requestSeats(show, "001",3);
+        console.log(patron.requestSeats(show, "001",3));
+    });
     it("should be able to purchaseSeats", function() {
-        patron.purchaseSeats([]);
+        patron.purchaseSeats(show, "001");
     });
     it("should be able to useTickets", function() {
         patron.useTickets([]);
