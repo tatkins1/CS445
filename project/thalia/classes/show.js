@@ -14,6 +14,9 @@ class Show {
     getPrice(section_id) {
 
     }
+    getId(){
+        return this.id;
+    }
 
     //getters and setters for everything
 

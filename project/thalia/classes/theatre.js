@@ -7,6 +7,7 @@ class Theatre {
         this.layout_map = layout_map;
         this.orders=[];
         this.patrons={};
+        this.reports={};
 
     }
     getShows() {

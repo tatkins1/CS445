@@ -38,10 +38,32 @@ class Section {
         return this.price;
     }
     setPrice(price) {
-        this.price=price;
+        this.price = price;
     }
     getId() {
         return this.sid;
+    }
+    getNumAvailableSeats() {
+        let num_seats = 0;
+        for (let i = 0; i < this.seats.length; i++) {
+            for (let j = 0; j < this.seats[i].length; j++) {
+                if (this.seats[i][j] == 1) {
+                    num_seats++;
+                }
+            }
+        }
+        return num_seats;
+    }
+    getTotalSeats() {
+        let num_seats = 0;
+        for (let i = 0; i < this.seats.length; i++) {
+            for (let j = 0; j < this.seats[i].length; j++) {
+                num_seats++;
+
+            }
+        }
+        return num_seats;
+
     }
     getAvailableSeats() {
         let str = "";
@@ -50,7 +72,7 @@ class Section {
                 if (this.seats[i][j] == 1) {
                     var k = j + 1;
                     //str = str + alphabet[i] + "-" + k + ", ";
-                    str = str + i + "-" + j+ ", ";
+                    str = str + i + "-" + j + ", ";
                 }
 
             }
@@ -69,16 +91,16 @@ class Section {
         var x = seat_id.split("-");
         let i = x[0];
         let j = x[1];
-        if(this.seats[i][j]){
-            this.seats[i][j]=0;
+        if (this.seats[i][j]) {
+            this.seats[i][j] = 0;
         }
     }
     setSeat(seat_id) {
         var x = seat_id.split("-");
         let i = x[0];
         let j = x[1];
-        if(this.seats[i][j]){
-            this.seats[i][j]=0;
+        if (this.seats[i][j]) {
+            this.seats[i][j] = 0;
         }
     }
     isSeatAvailable(seat_id) {

@@ -9,7 +9,7 @@ describe("Thalia", function() {
     var ticketIDgenerator = require("../../classes/ticketIDgenerator");
     var patronIDgenerator = require("../../classes/patronIDgenerator");
     var orderIDgenerator = require("../../classes/orderIDgenerator");
-
+    var ReportGenerator = require("../../classes/reportGenerator");
 
     //--- layout object
     var theatre_layout = {
@@ -53,7 +53,7 @@ describe("Thalia", function() {
     };
     var seating_info = [{
             "sid": "001",
-            "price": 600
+            "price": 60
         },
         {
             "sid": "002",
@@ -64,13 +64,34 @@ describe("Thalia", function() {
             "price": 60
         }
     ];
+    var show_info2 = {
+        "name": "GOT",
+        "web": "http://www.example.com/shows/GOT",
+        "date": "2017-12-07",
+        "time": "13:00"
+    };
+    var seating_info2 = [{
+            "sid": "002",
+            "price": 40
+        },
+        {
+            "sid": "004",
+            "price": 50
+        },
+        {
+            "sid": "005",
+            "price": 40
+        }
+    ];
     beforeEach(function() {
         SID = new showIDgenerator();
         PID = new patronIDgenerator();
 
         theatre = new Theatre('Thalia', theatre_layout, {});
         show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
-        patron = new Patron('Jill');
+        show2 = new Show(SID.generate(), show_info2, seating_info2, theatre.getLayout());
+
+        patron = new Patron(PID.generate(), 'Jill');
 
 
 
@@ -82,6 +103,17 @@ describe("Thalia", function() {
     });
     it("patron must be able to view shows", function() {
 
+    });
+    it("generate Occupancy report", function() {
+        theatre.addShow(show);
+        theatre.addShow(show2);
+        show.getSection("001").seats[1][1] = 0;
+        show.getSection("001").seats[2][0] = 0;
+        show.getSection("001").seats[3][2] = 0;
+        console.log(show.getId());
+        let RG = new ReportGenerator(theatre);
+        console.log(RG.getTotalOccupancy());
+        console.log(RG.getOccupancyByShow(show2.getId()));
     });
     it("patron must be able to view available seats for show", function() {
 
