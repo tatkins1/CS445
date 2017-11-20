@@ -71,3 +71,20 @@ Should I create show object and then add shows to theatre or should add show to 
 Passing IDs as arguments vs class instances
 purchase seats. should i pass the the show object and the section object or the show object and show id? alternately should I pass the theatre object then show and section ids? 
 
+
+
+SINGLETON - Theatre
+FACTORY - creating instaces with IDs
+Observer -
+
+pass around factory object in constructors 
+
+Should I have a class called system that encapsulates use cases?
+
+could be like self serve kiosk.
+
+ticket class
+scannable interface
+scannableticket inherits and impliments both
+order
+
