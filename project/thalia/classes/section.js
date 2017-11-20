@@ -49,7 +49,8 @@ class Section {
             for (let j = 0; j < this.seats[i].length; j++) {
                 if (this.seats[i][j] == 1) {
                     var k = j + 1;
-                    str = str + alphabet[i] + "-" + k + ", ";
+                    //str = str + alphabet[i] + "-" + k + ", ";
+                    str = str + i + "-" + j+ ", ";
                 }
 
             }
@@ -63,6 +64,14 @@ class Section {
         let j = x[1];
         return this.seats[i][j];
 
+    }
+    bookSeat(seat_id) {
+        var x = seat_id.split("-");
+        let i = x[0];
+        let j = x[1];
+        if(this.seats[i][j]){
+            this.seats[i][j]=0;
+        }
     }
     setSeat(seat_id) {
         var x = seat_id.split("-");

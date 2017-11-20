@@ -1,7 +1,10 @@
+var Ticket = require("./ticket");
+var Order = require("./order");
 class Patron {
     constructor(id, name) {
         this.name = name;
         this.id = id;
+        this.order
     }
     viewShows(theatre) {
 
@@ -28,8 +31,7 @@ class Patron {
                 for (let k = 0; k < num_seats; k++) {
                     if (section.seats[i][j + k] == 1) {
                         var x=j+k;
-                        console.log(i,x);
-                        seatgroup.push([i, j + k]);
+                        seatgroup.push(i+"-"+x);
                     } else {
                         break;
                     }
@@ -46,19 +48,28 @@ class Patron {
 
 
     }
-    purchaseSeats(show, sid, seat_array) {
+    purchaseSeats(theatre, show, sid, seat_array) {
+        //checkseats
+        //bookseats
+        //return order
+        var section = show.getSection(sid);
         for (let i = 0; i < seat_array.length; i++) {
             if (!section.isSeatAvailable(seat_array[i])) {
                 return null;
             }
 
         }
-        return seat_array.map(e => {
-            return new Ticket(e, show, section.getPrice());
+         for (let i = 0; i < seat_array.length; i++) {
+            section.bookSeat(seat_array[i]);
+        }
+        var tickets= seat_array.map(e => {
+            return new Ticket(e, e, show, section.getPrice());
         });
-
-
-
+        
+        var order= new Order("order1", tickets, this);
+        theatre.addOrder(order);
+        this.order=order;
+        return order;
     }
 }
 module.exports = Patron;

@@ -5,6 +5,8 @@ class Theatre {
         this.shows = {}; // map of shows
         this.section_layout = section_layout;
         this.layout_map = layout_map;
+        this.orders=[];
+        this.patrons={};
 
     }
     getShows() {
@@ -31,6 +33,12 @@ class Theatre {
     }
     editShow(show_ID, show_object) {
         //blah
+    }
+    addOrder(order){
+        this.orders.push(order);
+    }
+    getOrder(orderID){
+
     }
 
 }

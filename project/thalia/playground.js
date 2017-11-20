@@ -13,12 +13,20 @@ console.log(x);
 console.log(sum);
 
 class TestClass {
+	constructor(name){
+		this.name = name;
+	}
+	getName(){
+		return this.name;
+	}
 
 }
-let tc = new TestClass();
+
+
+
 console.log(tc.constructor.name);
 
-
+var str="HELLOW";
 class IDg{
 	constructor(seed=""){
 		this.seed=seed;
@@ -37,3 +45,4 @@ class IDg{
  idg2.generate();
  idg2.generate();
  console.log(idg2.generate());
+ module.exports=TestClass;
