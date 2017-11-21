@@ -17,7 +17,7 @@ describe("Order", function() {
         TID = new ticketIDgenerator();
         let ticket_array = [];
         for (let i = 0; i < 3; i++) {
-            ticket_array.push(new Ticket(TID.generate(), "seat" + i, "GOT", 20));
+            ticket_array.push(new Ticket(TID.generate(), "seat" + i,"sectionId", "GOT", 20));
         }
         patron = new Patron(PID.generate(), "Hamze");
         order = new Order(OID.generate(), ticket_array, patron);

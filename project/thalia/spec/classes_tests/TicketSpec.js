@@ -2,7 +2,7 @@ describe("Ticket", function() {
     var Ticket = require('../../classes/ticket');
     console.log("TicketSpec.js ran!");
     beforeEach(function() {
-        ticket = new Ticket(1, "seat1a", "rick&morty", 100);
+        ticket = new Ticket(1, "seat1a","secid","rick&morty", 100);
     });
     it("should be able to setOrder", function() {
         ticket.setOrder("order");

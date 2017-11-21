@@ -10,18 +10,9 @@ class ReportGenerator {
         shows.forEach(show => {
 
 
-            total_seats += show.getSections().map(sec => {
-                return sec.getTotalSeats();
-            }).reduce((total, result) => {
-                return total + result;
-            });
+            total_seats += getTotalSeats(show);
 
-            sold_seats += show.getSections().map(sec => {
-                return sec.getNumAvailableSeats();
-            }).reduce((total, result) => {
-                return total + result;
-            });
-
+            sold_seats += getSoldSeats(show);
         });
         let total_occupancy = sold_seats * 100 / total_seats;
         let report = {
@@ -34,27 +25,49 @@ class ReportGenerator {
     }
     getOccupancyByShow(show_id) {
 
-        let total_seats = this.theatre.getShow(show_id).getSections().map(sec => {
-            return sec.getTotalSeats();
-        }).reduce((total, result) => {
-            return total + result;
-        });
-        let sold_seats = this.theatre.getShow(show_id).getSections().map(sec => {
-            return sec.getNumAvailableSeats();
-        }).reduce((total, result) => {
-            return total + result;
-        });
+        let total_seats = getTotalSeats(this.theatre.getShow(show_id));
+        let sold_seats = getSoldSeats(this.theatre.getShow(show_id));
         let total_occupancy = sold_seats * 100 / total_seats;
         return total_occupancy;
     }
     getTotalRevenue() {
+        let shows=this.theatre.getShows();
+        let total_revenue=0;
+        shows.forEach(s=>{
+            total_revenue+=getShowRevenue(s);
+        })
+        return total_revenue;
 
     }
-    getTotalRevenuebyShow() {
-
+    getTotalRevenuebyShow(show_id) {
+        let show =this.theatre.getSection(show_id);
+        return getShowRevenue(show);
     }
     generateTotalDonatedTicketsReport() {
 
     }
+}
+function getTotalSeats(show) {
+    return show.getSections().map(sec => {
+            return sec.getTotalSeats();
+        }).reduce((total, result) => {
+            return total + result;
+        },0);
+    }
+function getSoldSeats(show) {
+    return show.getSections().map(sec => {
+            return sec.getNumAvailableSeats();
+        }).reduce((total, result) => {
+            return total + result;
+        },0);
+}
+function getShowRevenue(show) {
+    return show.orders.map(o=>{
+       return o.tickets.map(t=>t.price).reduce((total,result)=>{
+            return total+result;
+        },0);
+    }).reduce((total,result)=>{
+            return total+result;
+        },0);
 }
 module.exports = ReportGenerator;

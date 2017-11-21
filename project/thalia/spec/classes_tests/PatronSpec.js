@@ -96,6 +96,12 @@ describe("Patron", function() {
         expect(patron.viewShow(theatre, show.id)).toEqual({ "wid": show.id, "show_info": show_info, "seating_info": seating_info });
     });
     it("should be able to donate tickets", function() {
-        patron.donate([]);
+        theatre.addShow(show);
+        patron.purchaseSeats(theatre, show, "001", ['2-1', '2-2', '2-3']);
+        patron.donateTickets(theatre, patron.tickets);
+    });
+    it("should be able to subscribe to donations", function() {
+        theatre.addShow(show);
+        patron.subscribeToDonations(theatre, show.getId(), 2);
     });
 });

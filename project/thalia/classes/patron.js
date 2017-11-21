@@ -4,7 +4,7 @@ class Patron {
     constructor(id, name) {
         this.name = name;
         this.id = id;
-        this.order
+        this.tickets = null;
     }
     viewShows(theatre) {
 
@@ -26,12 +26,12 @@ class Patron {
         let section = show.getSection(sid);
         let seatgroups = [];
         for (let i = 0; i < section.seats.length; i++) {
-            for (let j = 0; j < section.seats[i].length - num_seats+1; j++) {
+            for (let j = 0; j < section.seats[i].length - num_seats + 1; j++) {
                 let seatgroup = [];
                 for (let k = 0; k < num_seats; k++) {
                     if (section.seats[i][j + k] == 1) {
-                        var x=j+k;
-                        seatgroup.push(i+"-"+x);
+                        var x = j + k;
+                        seatgroup.push(i + "-" + x);
                     } else {
                         break;
                     }
@@ -39,7 +39,7 @@ class Patron {
                 if (seatgroup.length == num_seats) {
                     seatgroups.push(seatgroup);
                 } else {
-                    
+
                 }
             }
         }
@@ -59,17 +59,40 @@ class Patron {
             }
 
         }
-         for (let i = 0; i < seat_array.length; i++) {
+        for (let i = 0; i < seat_array.length; i++) {
             section.bookSeat(seat_array[i]);
         }
-        var tickets= seat_array.map(e => {
-            return new Ticket(e, e, show, section.getPrice());
+        var tickets = seat_array.map(e => {
+            return new Ticket(e, e, sid, show, section.getPrice());
         });
-        
-        var order= new Order("order1", tickets, this);
-        theatre.addOrder(order);
-        this.order=order;
+
+        var order = new Order("order1", tickets, this.id);
+        show.addOrder(order);
+        this.tickets = tickets;
         return order;
+    }
+    donateTickets(theatre, tickets) {
+        tickets = tickets.filter(t => {
+            return t.isValid();
+        });
+        tickets.forEach(t => {
+            t.donate();
+            theatre.getShow(t.show.id).addDonation(t);
+        });
+        this.tickets = this.tickets.filter(t => {
+            for (let i = 0; i < tickets; i++) {
+                if (tickets[i].id == t.id) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        //NotifySubscriber();
+
+    }
+    subscribeToDonations(theatre, show_id, count) {
+        let show = theatre.getShow(show_id);
+        show.addSubscriber({ "patron": this, "count": count });
     }
 }
 module.exports = Patron;

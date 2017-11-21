@@ -115,6 +115,14 @@ describe("Thalia", function() {
         console.log(RG.getTotalOccupancy());
         console.log(RG.getOccupancyByShow(show2.getId()));
     });
+    it("generate revenue report", function() {
+        theatre.addShow(show);
+        theatre.addShow(show2);
+        patron.purchaseSeats(theatre, show, "001", ['2-1', '2-2', '2-3']);
+        console.log(show.orders);
+        let RG = new ReportGenerator(theatre);
+        console.log(RG.getTotalRevenue());
+    });
     it("patron must be able to view available seats for show", function() {
 
     });

@@ -6,10 +6,18 @@ class Show {
         this.show_info=show_info;
         this.datetime = new Date(show_info.date + "T" + show_info.time + ":00Z");
         this.seating_info = seating_info;
-
+        this.orders=[];
+        this.donations=[];
+        this.subscribers=[];
         this.sections = seating_info.map(e => {
             return new Section(theatre_layout[e.sid], e.price);
         });
+    }
+    addDonation(donation){
+        this.donations.push(donation);
+    }
+    addOrder(order){
+        this.orders.push(order);
     }
     getPrice(section_id) {
 
@@ -17,6 +25,10 @@ class Show {
     getId(){
         return this.id;
     }
+    addSubscriber(subscriber){
+        this.subscribers.push(subscriber);
+    }
+
 
     //getters and setters for everything
 
