@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-router.get('/', function(req, res, next) {
-  res.sendFile('index.html', {root: path.normalize(__dirname+'/../views')});
+router.post('/', function(req, res, next) {
+	//CreateOrder or get orderbyDate
 });
-
+router.get('/', function(req, res, next) {
+	//ViewAllOrders
+});
+router.post('/*', function(req, res, next) {
+	//viewOrder
+});
 module.exports = router;

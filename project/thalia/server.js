@@ -28,12 +28,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
-app.use('/shows', shows);
-app.use('/seating', seating);
-app.use('/orders', orders);
-app.use('/tickets', tickets);
-app.use('/reports', reports);
-app.use('/search', search);
+app.use('/thalia/shows', shows);
+app.use('/thalia/seating', seating);
+app.use('/thalia/orders', orders);
+app.use('/thalia/tickets', tickets);
+app.use('/thalia/reports', reports);
+app.use('/thalia/search', search);
 app.use('*', index);
 
 

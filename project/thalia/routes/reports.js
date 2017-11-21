@@ -4,7 +4,10 @@ var path = require('path');
 var Ticket = require('../classes/ticket');
 
 router.get('/', function(req, res, next) {
-  res.sendFile('index.html', {root: path.normalize(__dirname+'/../views')});
+//getListofAvailableReports
+});
+router.get('/*', function(req, res, next) {
+//getReport
 });
 
 module.exports = router;
