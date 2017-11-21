@@ -1,11 +1,10 @@
 class Theatre {
     //refactor to singleton
-    constructor(name, section_layout, layout_map) {
+    constructor(name, theatre_layout, layout_map) {
         this.name = name;
         this.shows = {}; // map of shows
-        this.section_layout = section_layout;
+        this.theatre_layout = theatre_layout;
         this.layout_map = layout_map;
-        this.orders=[];
         this.patrons={};
         this.reports={};
 
@@ -23,7 +22,7 @@ class Theatre {
 
     }
     getLayout() {
-        return this.section_layout;
+        return this.theatre_layout;
     }
     editLayout(newlayout) {
         this.section_layout = newlayout;

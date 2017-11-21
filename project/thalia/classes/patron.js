@@ -1,9 +1,14 @@
 var Ticket = require("./ticket");
 var Order = require("./order");
 class Patron {
-    constructor(id, name) {
+    constructor(id, name, phone, email , billing_address, cc_num, cc_exp) {
         this.name = name;
         this.id = id;
+        this.phone=phone;
+        this.email=email;
+        this.billing_address=billing_address;
+        this.cc_num=cc_num;
+        this.cc_exp=cc_exp;
         this.tickets = null;
     }
     viewShows(theatre) {

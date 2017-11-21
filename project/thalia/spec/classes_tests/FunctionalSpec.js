@@ -10,6 +10,7 @@ describe("Thalia", function() {
     var patronIDgenerator = require("../../classes/patronIDgenerator");
     var orderIDgenerator = require("../../classes/orderIDgenerator");
     var ReportGenerator = require("../../classes/reportGenerator");
+    var TheatreFactory = require("../../classes/TheatreFactory");
 
     //--- layout object
     var theatre_layout = {
@@ -91,8 +92,8 @@ describe("Thalia", function() {
         show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
         show2 = new Show(SID.generate(), show_info2, seating_info2, theatre.getLayout());
 
-        patron = new Patron(PID.generate(), 'Jill');
-
+        patron = new Patron(PID.generate(), 'Jill','123-456-7890', 'john.doe@example.com','123 Main ST, Anytown, IL 45678', '1234567890987654', '12/21');
+        theatreFactory = new TheatreFactory(theatre);
 
 
     });
@@ -122,6 +123,28 @@ describe("Thalia", function() {
         console.log(show.orders);
         let RG = new ReportGenerator(theatre);
         console.log(RG.getTotalRevenue());
+    });
+    it("testing factory", function() {
+        var show_info = {
+        "name": "King Lear",
+        "web": "http://www.example.com/shows/king-lear",
+        "date": "2017-12-05",
+        "time": "13:00"
+    };
+    var seating_info = [{
+            "sid": "001",
+            "price": 60
+        },
+        {
+            "sid": "002",
+            "price": 75
+        },
+        {
+            "sid": "003",
+            "price": 60
+        }
+    ];
+        theatreFactory.createShow(show_info, seating_info);
     });
     it("patron must be able to view available seats for show", function() {
 

@@ -63,7 +63,7 @@ describe("Patron", function() {
     beforeEach(function() {
         SID = new showIDgenerator();
         PID = new patronIDgenerator();
-        patron = new Patron(PID.generate(), 'Jill');
+        patron = new Patron(PID.generate(), 'Jill','123-456-7890', 'john.doe@example.com','123 Main ST, Anytown, IL 45678', '1234567890987654', '12/21');
         theatre = new Theatre('Thalia', theatre_layout, {});
         show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
 

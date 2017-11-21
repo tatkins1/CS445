@@ -1,8 +1,8 @@
 class Order {
-    constructor(id, tickets, patron) {
+    constructor(id, tickets, patron_id) {
         this.id = id;
         this.tickets = tickets;
-        this.patron = patron;
+        this.patron_id = patron_id;
         this.date = new Date();
     }
     getTickets() {
@@ -15,8 +15,8 @@ class Order {
         });
         return sum;
     }
-    getPatron() {
-        return this.patron;
+    getPatronId() {
+        return this.patron_id;
     }
     getDate() {
         return this.date;
