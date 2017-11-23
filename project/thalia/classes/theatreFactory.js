@@ -5,7 +5,7 @@ let Ticket = require("./ticket");
 
 class TheatreFactory {
     constructor(theatre) {
-    		this.theatre=theatre;
+    	this.theatre=theatre;
         this.show_id = 0;
         this.ticket_id = 0;
         this.order_id = 0;
@@ -32,8 +32,10 @@ class TheatreFactory {
 
             this.patron_id++;
             let id = "P" + this.patron_id;
-
-            return new Patron(id, patron_id.name, patron_id.phone, patron_id.email, patron_id.billing_adsress, patron_id.cc_number, patron_id.cc_expiration_date);
+            
+            let patron= new Patron(id, patron_id.name, patron_id.phone, patron_id.email, patron_id.billing_adsress, patron_id.cc_number, patron_id.cc_expiration_date);
+            this.theatre.patrons.push(patron);
+            return patron;
         } else {
             return null;
         }

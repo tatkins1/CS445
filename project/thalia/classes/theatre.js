@@ -5,7 +5,7 @@ class Theatre {
         this.shows = {}; // map of shows
         this.theatre_layout = theatre_layout;
         this.layout_map = layout_map;
-        this.patrons={};
+        this.patrons=[];
         this.reports={};
 
     }
@@ -18,6 +18,33 @@ class Theatre {
         } else {
             return null;
         }
+
+
+    }
+     requestSeats(wid, sid, num_seats) {
+        let show= this.getShow(wid);
+        let section = show.getSection(sid);
+        let seatgroups = [];
+        for (let i = 0; i < section.seats.length; i++) {
+            for (let j = 0; j < section.seats[i].length - num_seats + 1; j++) {
+                let seatgroup = [];
+                for (let k = 0; k < num_seats; k++) {
+                    if (section.seats[i][j + k] == 1) {
+                        var x = j + k;
+                        seatgroup.push(i + "-" + x);
+                    } else {
+                        break;
+                    }
+                }
+                if (seatgroup.length == num_seats) {
+                    seatgroups.push(seatgroup);
+                } else {
+
+                }
+            }
+        }
+        return seatgroups;
+
 
 
     }

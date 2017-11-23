@@ -73,7 +73,7 @@ describe("Patron", function() {
         show.getSection("001").seats[2][0]=0;
         show.getSection("001").seats[3][2]=0;
         show.getSection("001").seats[0][0]=0;
-        //console.log(patron.requestSeats(show, "001",3));
+        console.log(patron.requestSeats(show, "001",3));
         expect(true).toEqual(true);
     });
     it("should be able to purchaseSeats", function() {
