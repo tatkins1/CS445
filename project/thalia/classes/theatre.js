@@ -76,6 +76,22 @@ class Theatre {
         show.addOrder(order);
         return order;
     }
+    getAllOrders(){
+        let orders=[];
+        this.getShows().forEach(show=>{
+            show.getOrders().forEach(order=>{
+                orders.push(order);
+            });
+            
+        });
+        return orders;
+    }
+    getOrder(oid){
+        return this.getAllOrders().find(order=>{
+
+            return order.getId()==oid
+        });
+    }
     getLayout() {
         return this.theatre_layout;
     }
@@ -89,12 +105,7 @@ class Theatre {
     editShow(show_ID, show_object) {
         //blah
     }
-    addOrder(order) {
-        this.orders.push(order);
-    }
-    getOrder(orderID) {
-
-    }
+   
 
 }
 module.exports = Theatre;

@@ -6,7 +6,7 @@ class Show {
         this.show_info=show_info;
         this.datetime = new Date(show_info.date + "T" + show_info.time + ":00Z");
         this.seating_info = seating_info;
-        this.orders=[];
+        this.orders={};
         this.donations=[];
         this.subscribers=[];
         this.sections = seating_info.map(e => {
@@ -17,7 +17,7 @@ class Show {
         this.donations.push(donation);
     }
     addOrder(order){
-        this.orders.push(order);
+        this.orders[order.getId()]=order;
     }
     getPrice(section_id) {
 
@@ -27,6 +27,12 @@ class Show {
     }
     addSubscriber(subscriber){
         this.subscribers.push(subscriber);
+    }
+    getOrder(oid){
+        return this.orders[oid];
+    }
+    getOrders(){
+        return Object.values(this.orders);
     }
 
 
