@@ -13,6 +13,14 @@ describe("Thalia", function() {
     var TheatreFactory = require("../../classes/TheatreFactory");
 
     //--- layout object
+    var patron_info = {
+        "name": "John Doe",
+        "phone": "123-456-7890",
+        "email": "john.doe@example.com",
+        "billing_address": "123 Main ST, Anytown, IL 45678",
+        "cc_number": "1234567890987654",
+        "cc_expiration_date": "12/21"
+    };
     var theatre_layout = {
         "001": {
             "name": "Front right",
@@ -92,8 +100,9 @@ describe("Thalia", function() {
         show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
         show2 = new Show(SID.generate(), show_info2, seating_info2, theatre.getLayout());
 
-        patron = new Patron(PID.generate(), 'Jill','123-456-7890', 'john.doe@example.com','123 Main ST, Anytown, IL 45678', '1234567890987654', '12/21');
         theatreFactory = new TheatreFactory(theatre);
+        show3 = theatreFactory.createShow(show_info, seating_info);
+        patron = theatreFactory.createPatron(patron_info);
 
 
     });
@@ -102,9 +111,7 @@ describe("Thalia", function() {
         //console.log(theatre.shows);
         //expect(theatre.shows[show.id]).toEqual(show);
     });
-    it("patron must be able to view shows", function() {
-
-    });
+   
     it("generate Occupancy report", function() {
         theatre.addShow(show);
         theatre.addShow(show2);
@@ -117,61 +124,20 @@ describe("Thalia", function() {
         console.log(RG.getOccupancyByShow(show2.getId()));
     });
     it("generate revenue report", function() {
-        theatre.addShow(show);
-        theatre.addShow(show2);
-        patron.purchaseSeats(theatre, show, "001", ['2-1', '2-2', '2-3']);
-        console.log(show.orders);
-        let RG = new ReportGenerator(theatre);
-        console.log(RG.getTotalRevenue());
+        //theatre.addShow(show);
+        //theatre.addShow(show2);
+        //patron.purchaseSeats(theatre, show, "001", ['2-1', '2-2', '2-3']);
+        //console.log(show.orders);
+        //let RG = new ReportGenerator(theatre);
+        //console.log(RG.getTotalRevenue());
     });
-    it("testing factory", function() {
-        var show_info = {
-        "name": "King Lear",
-        "web": "http://www.example.com/shows/king-lear",
-        "date": "2017-12-05",
-        "time": "13:00"
-    };
-    var seating_info = [{
-            "sid": "001",
-            "price": 60
-        },
-        {
-            "sid": "002",
-            "price": 75
-        },
-        {
-            "sid": "003",
-            "price": 60
-        }
-    ];
-        theatreFactory.createShow(show_info, seating_info);
-    });
-    it("patron must be able to view available seats for show", function() {
+    
+    it("makeOrder", function() {
 
+        console.log(theatre.purchaseSeats(patron.getId(), show3.getId(), "001", ['2-1', '2-2', '2-3'], theatreFactory));
+        console.log(patron.tickets);
+        console.log(show3.orders);
+        expect(true).toEqual(true);
     });
-    it("patron must be able to view available seats for specific section for specific show", function() {
-
-    });
-    it("patron must be able to buy tickets for show", function() {
-
-    });
-    it("patron must be able to donate tickets", function() {
-
-    });
-    it("patron must be able to subscribe to donated tickets", function() {
-
-    });
-    it("patron must be able request contiguous seats", function() {
-
-    });
-    it("manager must be able to search for show", function() {
-
-    });
-    it("manager must be able to generate a report", function() {
-
-    });
-    it("manager must be able to generate a report between different dates ", function() {
-
-    });
-
+    
 });

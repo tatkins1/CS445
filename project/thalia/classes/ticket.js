@@ -1,9 +1,9 @@
 class Ticket {
-    constructor(id, seatid,sectionid, show, price) {
-        this.id = id; //generateId(); //showid+sectionid+row-colum
+    constructor(id, seatid, wid, sectionid, price) {
+        this.id = id;
         this.seatid = seatid;
-        this.show = show;
-        this.sectionid=sectionid
+        this.wid = wid;
+        this.sid = sectionid
         this.price = price;
         this.order = null;
         this.status = 0; //0 for new, 1 for donated and -1 for used
@@ -34,11 +34,10 @@ class Ticket {
         }
 
     }
-    isValid(){
-        if (this.status==-1){
+    isValid() {
+        if (this.status == -1) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }

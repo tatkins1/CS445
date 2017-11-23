@@ -1,8 +1,10 @@
 class Order {
-    constructor(id, tickets, patron_id) {
+    constructor(id, wid,sid,patron_id ,tickets) {
+        this.sid=sid;
         this.id = id;
+        this.wid=wid;
         this.tickets = tickets;
-        this.patron_id = patron_id;
+        this.pid = patron_id;
         this.date = new Date();
     }
     getTickets() {
@@ -16,7 +18,7 @@ class Order {
         return sum;
     }
     getPatronId() {
-        return this.patron_id;
+        return this.pid;
     }
     getDate() {
         return this.date;

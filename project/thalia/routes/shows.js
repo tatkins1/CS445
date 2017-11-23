@@ -9,7 +9,6 @@ router.post('/', function(req, res, next) {
     let show_info = req.body.show_info;
     let seating_info = req.body.seating_info;
     let show = theatreFactory.createShow(show_info, seating_info);
-    theatre.addShow(show);
     res.send({ "wid": show.getId() }).status(200);
 });
 router.get('/', function(req, res, next) {

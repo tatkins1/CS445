@@ -11,6 +11,9 @@ class Patron {
         this.cc_exp=cc_exp;
         this.tickets = null;
     }
+    getId(){
+        return this.id;
+    }
     viewShows(theatre) {
 
         return theatre.getShows().map(e => e.name);
@@ -71,7 +74,7 @@ class Patron {
             return new Ticket(e, e, sid, show, section.getPrice());
         });
 
-        var order = new Order("order1", tickets, this.id);
+        order = new Order(OID.generate(), "wid","sid","patron_id" ,ticket_array);
         show.addOrder(order);
         this.tickets = tickets;
         return order;

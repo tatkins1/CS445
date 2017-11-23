@@ -5,8 +5,8 @@ class Theatre {
         this.shows = {}; // map of shows
         this.theatre_layout = theatre_layout;
         this.layout_map = layout_map;
-        this.patrons=[];
-        this.reports={};
+        this.patrons = {};
+        this.reports = {};
 
     }
     getShows() {
@@ -21,8 +21,11 @@ class Theatre {
 
 
     }
-     requestSeats(wid, sid, num_seats) {
-        let show= this.getShow(wid);
+    getPatron(pid) {
+        return this.patrons[pid];
+    }
+    requestSeats(wid, sid, num_seats) {
+        let show = this.getShow(wid);
         let section = show.getSection(sid);
         let seatgroups = [];
         for (let i = 0; i < section.seats.length; i++) {
@@ -48,6 +51,31 @@ class Theatre {
 
 
     }
+    purchaseSeats(pid, wid, sid, seat_array, id_factory) {
+        //checkseats
+        //bookseats
+        //return order
+        var patron = this.getPatron(pid);
+        var show = this.getShow(wid);
+        var section = show.getSection(sid);
+        for (let i = 0; i < seat_array.length; i++) {
+            if (!section.isSeatAvailable(seat_array[i])) {
+                return null;
+            }
+
+        }
+        for (let i = 0; i < seat_array.length; i++) {
+            section.bookSeat(seat_array[i]);
+        }
+        var tickets = seat_array.map(e => {
+            return id_factory.createTicket(e, wid, sid, section.getPrice());
+        });
+
+        var order = id_factory.createOrder(sid, pid, tickets);
+        show.addOrder(order);
+        patron.tickets = tickets;
+        return order;
+    }
     getLayout() {
         return this.theatre_layout;
     }
@@ -61,10 +89,10 @@ class Theatre {
     editShow(show_ID, show_object) {
         //blah
     }
-    addOrder(order){
+    addOrder(order) {
         this.orders.push(order);
     }
-    getOrder(orderID){
+    getOrder(orderID) {
 
     }
 

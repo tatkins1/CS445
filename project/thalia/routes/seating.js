@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
         let wid = req.query.show;
         let sid = req.query.section;
         let show = theatre.getShow(wid);
-        let section = theatre.getSection(sid);
+        let section = show.getSection(sid);
         let count = req.query.count;
         let option = 0;
         let output = {};
@@ -28,8 +28,8 @@ router.get('/', function(req, res, next) {
                 "sid": sid,
                 "section_name": section.getName(),
                 "starting_seat_id": option,
-                "status": "Error: " + count + " contiguous seats not available",
-                "seating": options[option].split(',').map((e,i) => { return { "cid": e, "seat":1+i, "status": "available" }; })
+                "status": "ok",
+                "seating": options[option].map((e,i) => { return { "cid": e, "seat":1+i, "status": "available" }; })
             }
             console.log(options[option]);
         } else {
