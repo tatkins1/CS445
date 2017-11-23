@@ -18,10 +18,10 @@ class TheatreFactory {
         this.theatre.addShow(show);
         return show;
     }
-    createTicket(seatid, wid, sid, price) {
+    createTicket(seatid, wid, sid, pid, price) {
         this.ticket_id++;
         let id = "T" + this.ticket_id;
-        return new Ticket(id, seatid, wid, sid, price);
+        return new Ticket(id, seatid, wid, sid, pid, price);
     }
     createOrder(wid,sid,pid,tickets) {
         this.order_id++;

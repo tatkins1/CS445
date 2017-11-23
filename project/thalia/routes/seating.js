@@ -22,6 +22,7 @@ router.get('/', function(req, res, next) {
 
             let options = (theatre.requestSeats(wid, sid, count));
             if (options && option < options.length) {
+                let output_seats=options[option].map((e, i) => { return { "cid": e, "seat": 1 + parseInt(e.split("-")[1]), "status": "available" }; });
                 output = {
                     "wid": wid,
                     "show_info": show.show_info,
@@ -29,7 +30,8 @@ router.get('/', function(req, res, next) {
                     "section_name": section.getName(),
                     "starting_seat_id": option,
                     "status": "ok",
-                    "seating": options[option].map((e, i) => { return { "cid": e, "seat": 1 + i, "status": "available" }; })
+                    "seating": {"row":parseInt(output_seats[0].cid.split("-")[0])+1,
+                                "seats": output_seats}
                 }
             } else {
                 output = {
@@ -49,7 +51,7 @@ router.get('/', function(req, res, next) {
             res.send(theatre.theatre_layout).status(200);
         }
     } catch (e) {
-        console.log("Error:", req.url);
+        console.log("Error:", req.url, e);
         res.send(req.url).status(500);
     }
 
@@ -60,7 +62,7 @@ router.get('/:sid', function(req, res, next) {
         let sid = req.params.sid;
         res.send(theatre.theatre_layout[sid]).status(200);
     } catch (e) {
-        console.log("Error:", req.url);
+        console.log("Error:", req.url, e);
         res.send(req.url).status(500);
     }
 

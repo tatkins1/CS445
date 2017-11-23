@@ -24,6 +24,9 @@ class Theatre {
     getPatron(pid) {
         return this.patrons[pid];
     }
+    getPatrons(){
+        return Object.values(this.patrons);
+    }
     requestSeats(wid, sid, num_seats) {
         let show = this.getShow(wid);
         let section = show.getSection(sid);
@@ -68,7 +71,7 @@ class Theatre {
             section.bookSeat(seat_array[i]);
         }
         var tickets = seat_array.map(e => {
-            return id_factory.createTicket(e, wid, sid, section.getPrice());
+            return id_factory.createTicket(e, wid, sid, pid, section.getPrice());
         });
 
         var order = id_factory.createOrder(wid,sid, pid, tickets);

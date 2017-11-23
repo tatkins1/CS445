@@ -1,9 +1,10 @@
 class Ticket {
-    constructor(id, seatid, wid, sectionid, price) {
+    constructor(id, seatid, wid, sectionid,pid, price) {
         this.id = id;
         this.seatid = seatid;
         this.wid = wid;
         this.sid = sectionid
+        this.pid=pid;
         this.price = price;
         this.order = null;
         this.status = 0; //0 for new, 1 for donated and -1 for used
