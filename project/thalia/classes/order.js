@@ -17,6 +17,9 @@ class Order {
         });
         return sum;
     }
+    getId(){
+        return this.id;
+    }
     getPatronId() {
         return this.pid;
     }

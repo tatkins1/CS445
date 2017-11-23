@@ -71,9 +71,9 @@ class Theatre {
             return id_factory.createTicket(e, wid, sid, section.getPrice());
         });
 
-        var order = id_factory.createOrder(sid, pid, tickets);
-        show.addOrder(order);
+        var order = id_factory.createOrder(wid,sid, pid, tickets);
         patron.tickets = tickets;
+        show.addOrder(order);
         return order;
     }
     getLayout() {

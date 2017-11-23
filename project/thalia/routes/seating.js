@@ -8,7 +8,6 @@ let theatreFactory = main.theatreFactory;
 
 router.get('/', function(req, res, next) {
     if (req.query.show) {
-    	console.log("HELLO");
         let wid = req.query.show;
         let sid = req.query.section;
         let show = theatre.getShow(wid);
@@ -31,7 +30,6 @@ router.get('/', function(req, res, next) {
                 "status": "ok",
                 "seating": options[option].map((e,i) => { return { "cid": e, "seat":1+i, "status": "available" }; })
             }
-            console.log(options[option]);
         } else {
             output = {
                 "wid": wid,
