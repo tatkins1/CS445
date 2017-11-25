@@ -79,6 +79,25 @@ class Theatre {
         show.addOrder(order);
         return order;
     }
+    donateTickets(patron,tickets) {
+        tickets = tickets.filter(t => {
+            return t.isDonatable();
+        });
+        tickets.forEach(t => {
+            t.donate();
+            this.getShow(t.wid).addDonation(t);
+        });
+        patron.tickets = patron.tickets.filter(t => {
+            for (let i = 0; i < tickets; i++) {
+                if (tickets[i].id == t.id) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        //NotifySubscriber();
+
+    }
     getAllOrders(){
         let orders=[];
         this.getShows().forEach(show=>{

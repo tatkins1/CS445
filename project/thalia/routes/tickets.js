@@ -7,19 +7,11 @@ let theatreFactory = main.theatreFactory;
 
 router.get('/:tid', function(req, res, next) {
     //viewTicket
-    	try{
+    try {
         let tid = req.params.tid;
         let patrons = theatre.getPatrons();
         let ticket = findTicket(patrons, tid);
 
-        function findTicket(patrons, tid) {
-            for (let i = 0; i < patrons.length; i++) {
-                let ticket = patrons[i].tickets.find(ticket => tid == ticket.id);
-                if (ticket) {
-                    return ticket;
-                }
-            }
-        }
         console.log(ticket);
         let output = {
             "tid": ticket.id,
@@ -31,29 +23,57 @@ router.get('/:tid', function(req, res, next) {
             "sid": ticket.sid,
             "section_name": theatre.theatre_layout[ticket.sid].name,
             "seating": [{
-                "row": parseInt(ticket.seatid.split("-")[0])+1,
+                "row": parseInt(ticket.seatid.split("-")[0]) + 1,
                 "seats": [{
                     "cid": ticket.seatid,
-                    "seat": parseInt(ticket.seatid.split("-")[1])+1
+                    "seat": parseInt(ticket.seatid.split("-")[1]) + 1
                 }]
             }]
         };
         res.send(output).status(200);
-      }
-      catch (e) {
+    } catch (e) {
         console.log("Error:", req.url, e);
         res.send(req.url).status(500);
     }
-    
 
 
-});
-router.post('/*', function(req, res, next) {
-    //ScanTicket
+
 });
 router.post('/donations', function(req, res, next) {
-    //DonateTicket
+    try {
+        let ticket_ids = req.body.tickets;
+        let patrons = theatre.getPatrons()
+        tickets = ticket_ids.map(tid => {
+            return findTicket(patrons, tid);
+        });
+        let patron = theatre.getPatron(tickets[0].pid);
+        theatre.donateTickets(patron, tickets);
+        res.send({ "tickets": ticket_ids }).status(200);
+    } catch (e) {
+        console.log("Error:", req.url, e);
+        res.send(req.url).status(500);
+    }
+
 });
+router.post('/:tid', function(req, res, next) {
+    let tid = req.params.tid;
+    let patrons = theatre.getPatrons();
+    let ticket = findTicket(patrons, tid);
+    ticket.use();
+
+
+
+    res.send(req.body).status(200)
+});
+
+function findTicket(patrons, tid) {
+    for (let i = 0; i < patrons.length; i++) {
+        let ticket = patrons[i].tickets.find(ticket => tid == ticket.id);
+        if (ticket) {
+            return ticket;
+        }
+    }
+}
 
 
 module.exports = router;

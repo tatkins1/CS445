@@ -7,6 +7,7 @@ class Ticket {
         this.pid=pid;
         this.price = price;
         this.order = null;
+        this.donated= false;
         this.status = 0; //0 for new, 1 for donated and -1 for used
     }
     setOrder(order) {
@@ -42,11 +43,20 @@ class Ticket {
             return true;
         }
     }
+    isDonatable() {
+        if (this.status == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     donate() {
         var status = this.getStatus();
         if (status == 0) {
             this.setStatus(1);
+            this.donated=true;
             return true;
         } else {
             console.log("Cannot be donated. Ticket Already Used Or Donated.");
