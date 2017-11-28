@@ -1,3 +1,5 @@
-let x= []
-let y= [1,2,4]
-console.log(y.map((e,i)=>{return 4+i}));
+console.log(new Date("2011-11-11").toString());
+let date1= new Date("2011-11-11");
+let date2= new Date("2011-11-12");
+
+console.log(date1<date2)

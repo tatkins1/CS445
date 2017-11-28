@@ -34,6 +34,6 @@ describe("Ticket", function() {
     });
     it("should be able to be donated once", function() {
 
-        expect(ticket.donate()).toEqual(true);
+        expect(ticket.donate()).toEqual(ticket.donated);
     });
 });

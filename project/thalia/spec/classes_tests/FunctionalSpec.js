@@ -5,10 +5,6 @@ describe("Thalia", function() {
     var Section = require("../../classes/section");
     var Order = require("../../classes/order");
     var Ticket = require("../../classes/ticket");
-    var showIDgenerator = require("../../classes/showIDgenerator");
-    var ticketIDgenerator = require("../../classes/ticketIDgenerator");
-    var patronIDgenerator = require("../../classes/patronIDgenerator");
-    var orderIDgenerator = require("../../classes/orderIDgenerator");
     var ReportGenerator = require("../../classes/reportGenerator");
     var TheatreFactory = require("../../classes/TheatreFactory");
 
@@ -93,51 +89,22 @@ describe("Thalia", function() {
         }
     ];
     beforeEach(function() {
-        SID = new showIDgenerator();
-        PID = new patronIDgenerator();
-
-        theatre = new Theatre('Thalia', theatre_layout, {});
-        show = new Show(SID.generate(), show_info, seating_info, theatre.getLayout());
-        show2 = new Show(SID.generate(), show_info2, seating_info2, theatre.getLayout());
-
-        theatreFactory = new TheatreFactory(theatre);
-        show3 = theatreFactory.createShow(show_info, seating_info);
-        patron = theatreFactory.createPatron(patron_info);
 
 
     });
-    it("manager must be able to add show", function() {
-        theatre.addShow(show);
-        //console.log(theatre.shows);
-        //expect(theatre.shows[show.id]).toEqual(show);
+    it(" must be able create show", function() {
+        
     });
    
-    it("generate Occupancy report", function() {
-        theatre.addShow(show);
-        theatre.addShow(show2);
-        show.getSection("001").seats[1][1] = 0;
-        show.getSection("001").seats[2][0] = 0;
-        show.getSection("001").seats[3][2] = 0;
-        console.log(show.getId());
-        let RG = new ReportGenerator(theatre);
-        console.log(RG.getTotalOccupancy());
-        console.log(RG.getOccupancyByShow(show2.getId()));
+    it("must be able to generate Occupancy report", function() {
+        
     });
-    it("generate revenue report", function() {
-        //theatre.addShow(show);
-        //theatre.addShow(show2);
-        //patron.purchaseSeats(theatre, show, "001", ['2-1', '2-2', '2-3']);
-        //console.log(show.orders);
-        //let RG = new ReportGenerator(theatre);
-        //console.log(RG.getTotalRevenue());
+    it("must be able to generate revenue report", function() {
+    
     });
     
-    it("makeOrder", function() {
+    it("must be able to create order", function() {
 
-        console.log(theatre.purchaseSeats(patron.getId(), show3.getId(), "001", ['2-1', '2-2', '2-3'], theatreFactory));
-        console.log(patron.tickets);
-        console.log(show3.orders);
-        expect(true).toEqual(true);
     });
     
 });

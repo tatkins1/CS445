@@ -40,27 +40,59 @@ router.post('/', function(req, res, next) {
 
 });
 router.get('/', function(req, res, next) {
-    try {
-        let orders = theatre.getAllOrders();
-        let output = orders.map(order => {
-            return {
-                "oid": order.getId(),
-                "wid": order.wid,
-                "show_info": theatre.getShow(order.wid).show_info,
-                "date_ordered": order.date,
-                "order_amount": order.getTotal(),
-                "tickets": order.tickets.map(e => { return e.id })
-            };
+    if (req.query.start_date) {
+        try {
+            let start_date = parseInt(req.query.start_date);
+            let end_date = parseInt(req.query.end_date);
+            let orders = theatre.getAllOrders().filter(o => {
+                let day = (o.date.getDate()) + "";
+                let year = (o.date.getFullYear()) + "";
+                let month = (o.date.getMonth() + 1) + "";
+                let date = year + month + day;
+                date = parseInt(date);
+                return date > start_date && date < end_date
+            });
+            let output = orders.map(order => {
+                return {
+                    "oid": order.getId(),
+                    "wid": order.wid,
+                    "show_info": theatre.getShow(order.wid).show_info,
+                    "date_ordered": order.date,
+                    "order_amount": order.getTotal(),
+                    "tickets": order.tickets.map(e => { return e.id })
+                };
 
-        });
-        res.send(output).status(200);
-    } catch (e) {
-        console.log("Error:", req.url);
-        res.send(req.url).status(500);
+            });
+            res.send(output).status(200);
+        } catch (e) {
+            console.log("Error:", req.url, e);
+            res.send(req.url).status(500);
+        }
+    } else {
+        try {
+            let orders = theatre.getAllOrders();
+            let output = orders.map(order => {
+                return {
+                    "oid": order.getId(),
+                    "wid": order.wid,
+                    "show_info": theatre.getShow(order.wid).show_info,
+                    "date_ordered": order.date,
+                    "order_amount": order.getTotal(),
+                    "tickets": order.tickets.map(e => { return e.id })
+                };
+
+            });
+            res.send(output).status(200);
+        } catch (e) {
+            console.log("Error:", req.url, e);
+            res.send(req.url).status(500);
+        }
     }
 
 
+
 });
+
 router.get('/:oid', function(req, res, next) {
     try {
         let oid = req.params.oid;

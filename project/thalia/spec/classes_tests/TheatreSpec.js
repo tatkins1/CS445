@@ -62,6 +62,7 @@ describe("Theatre", function() {
 
         theatre.addShow(show);
         theatre.editShow(show.showid, show2);
+        expect().toEqual(false);
 
     });
 

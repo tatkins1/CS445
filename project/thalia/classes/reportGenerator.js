@@ -14,6 +14,96 @@ class ReportGenerator {
             }
         ];
     }
+    getDonatedReport() {
+        let shows = this.theatre.getShows();
+        let num_shows = shows.length;
+        let total_seats = 0;
+        let sold_seats = 0;
+        let donated_seats = 0;
+        let donated_used = 0;
+        let donated_used_value = 0;
+        shows.forEach(show => {
+            total_seats += getTotalSeats(show);
+            sold_seats += getSoldSeats(show);
+            donated_seats += getDonatedTickets(show);
+            donated_used += getDonatedUsedTickets(show);
+            donated_used_value += getDonatedUsedValue(show);
+
+        });
+        let show_reports = shows.map(show => {
+            return this.getDonatedReportByShow(show.id);
+        });
+        let report = {
+            "mrid": "803",
+            "name": "Donated tickets report",
+            "start_date": "",
+            "end_date": "",
+            "total_shows": num_shows,
+            "total_seats": total_seats,
+            "sold_seats": sold_seats,
+            "donated_tickets": donated_seats,
+            "donated_and_used_tickets": donated_used,
+            "donated_and_used_value": donated_used_value,
+            "shows": show_reports
+        }
+        return report;
+    }
+    getDonatedReportDate(start,end) {
+        let start_date = parseInt(start);
+        let end_date = parseInt(end);
+        let shows = this.theatre.getShows().filter(show=>{return show.date>start_date&&show.date<end_date});
+        let num_shows = shows.length;
+        let total_seats = 0;
+        let sold_seats = 0;
+        let donated_seats = 0;
+        let donated_used = 0;
+        let donated_used_value = 0;
+        shows.forEach(show => {
+            total_seats += getTotalSeats(show);
+            sold_seats += getSoldSeats(show);
+            donated_seats += getDonatedTickets(show);
+            donated_used += getDonatedUsedTickets(show);
+            donated_used_value += getDonatedUsedValue(show);
+
+        });
+        let show_reports = shows.map(show => {
+            return this.getDonatedReportByShow(show.id);
+        });
+        let report = {
+            "mrid": "803",
+            "name": "Donated tickets report",
+            "start_date": "",
+            "end_date": "",
+            "total_shows": num_shows,
+            "total_seats": total_seats,
+            "sold_seats": sold_seats,
+            "donated_tickets": donated_seats,
+            "donated_and_used_tickets": donated_used,
+            "donated_and_used_value": donated_used_value,
+            "shows": show_reports
+        }
+        return report;
+    }
+
+    getDonatedReportByShow(show_id) {
+        let show = this.theatre.getShow(show_id);
+        let total_seats = getTotalSeats(show);
+        let sold_seats = getSoldSeats(show);
+        let donated_seats = getDonatedTickets(show);
+        let donated_used = getDonatedUsedTickets(show);
+        let donated_used_value = getDonatedUsedValue(show);
+        let report = {
+            "wid": show_id,
+            "show_info": show.show_info,
+            "seats_available": total_seats,
+            "seats_sold": sold_seats,
+            "donated_tickets": donated_seats,
+            "donated_and_used_tickets": donated_used,
+            "donated_and_used_value": donated_used_value
+        }
+        return report;
+
+    }
     getTotalOccupancyReport() {
         let shows = this.theatre.getShows();
         let num_shows = shows.length;
@@ -45,30 +135,6 @@ class ReportGenerator {
         }
         return report;
     }
-    getTotalOccupancy() {
-        let shows = this.theatre.getShows();
-        let num_shows = shows.length;
-        let total_seats = 0;
-        let sold_seats = 0;
-        shows.forEach(show => {
-
-
-            total_seats += getTotalSeats(show);
-
-            sold_seats += getSoldSeats(show);
-        });
-        let total_occupancy = sold_seats * 100 / total_seats;
-
-
-
-        let report = {
-            "total_shows": num_shows,
-            "total_seats": total_seats,
-            "total_sold": sold_seats,
-            "overall_occupancy": total_occupancy
-        }
-        return total_occupancy;
-    }
 
     getOccupancyReportByShow(show_id) {
         let show = this.theatre.getShow(show_id);
@@ -84,22 +150,7 @@ class ReportGenerator {
         }
         return report;
     }
-    getOccupancyByShow(show_id) {
 
-        let total_seats = getTotalSeats(this.theatre.getShow(show_id));
-        let sold_seats = getSoldSeats(this.theatre.getShow(show_id));
-        let total_occupancy = sold_seats * 100 / total_seats;
-        return total_occupancy;
-    }
-    getTotalRevenue() {
-        let shows = this.theatre.getShows();
-        let total_revenue = 0;
-        shows.forEach(s => {
-            total_revenue += getShowRevenue(s);
-        })
-        return total_revenue;
-
-    }
     getTotalRevenueReport() {
         let shows = this.theatre.getShows();
         let num_shows = shows.length;
@@ -137,8 +188,8 @@ class ReportGenerator {
         let show = this.theatre.getShow(show_id);
         let total_seats = getTotalSeats(show);
         let sold_seats = getSoldSeats(show);
-        let revenue= getShowRevenue(show);
-        let report={
+        let revenue = getShowRevenue(show);
+        let report = {
             "wid": show_id,
             "show_info": show.show_info,
             "seats_available": total_seats,
@@ -147,15 +198,28 @@ class ReportGenerator {
         }
         return report;
     }
-    getTotalRevenuebyShow(show_id) {
-        let show = this.theatre.getSection(show_id);
 
-        return getShowRevenue(show);
-    }
-    generateTotalDonatedTicketsReport() {
-
-    }
 }
+
+function getDonatedTickets(show) {
+    return show.getOrders().map(o => {
+        return o.tickets.filter(t => t.donated).length
+    }).reduce((total, result) => { return total + result }, 0);
+}
+
+function getDonatedUsedTickets(show) {
+    return show.getOrders().map(o => {
+        return o.tickets.filter(t => t.donated && t.status == -1).length
+    }).reduce((total, result) => { return total + result }, 0);
+}
+
+function getDonatedUsedValue(show) {
+    return show.getOrders().map(o => {
+        return o.tickets.filter(t => t.donated && t.status == -1).map(t => t.price);
+    }).reduce((total, result) => { return total + result }, 0);
+}
+
+
 
 function getTotalSeats(show) {
     return show.getSections().map(sec => {
@@ -175,6 +239,29 @@ function getSoldSeats(show) {
 
 function getShowRevenue(show) {
     return show.getOrders().map(o => {
+        return o.tickets.map(t => t.price).reduce((total, result) => {
+            return total + result;
+        }, 0);
+    }).reduce((total, result) => {
+        return total + result;
+    }, 0);
+}
+
+
+
+
+
+
+
+
+
+
+function getShowRevenueDate(show, end, start) {
+    let start_date = parseInt(start);
+    let end_date = parseInt(end);
+    return show.getOrders().filter(o=>{
+        return o.date<end_date&&o.date>start_date;
+    }).map(o => {
         return o.tickets.map(t => t.price).reduce((total, result) => {
             return total + result;
         }, 0);

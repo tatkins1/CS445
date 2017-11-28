@@ -1,0 +1,24 @@
+
+Memo to Professor:
+I made the mistake of building the project without frequently referencing the API detail. When I thought I was finished I had to rewrite a lot of code to match the API. 
+I also opted not to use an IDE so it was a little difficult to refactor the design. Also with the approaching deadline I stopped writing tests and didn't want to rewrite tests because I needed to finish quickly. These are all mistakes you warned us about in class. 
+I did not implement all design patterns that I thought were fit. 
+I have dead code and irrelevant tests in the project
+If I had more time I think I would like to perfect this project.
+Status: Almost Done.
+Project deliverables not met:
+Search functionality
+
+Lines of code; 2147.
+Lines of code in unit tests; 981.
+Unit test coverage as measured by the tool of choice in your chosen programming language. 82%
+Cyclomatic complexity: 14
+The number of hours you needed to get the code working: 40
+The number of hours you spent preparing your submission: 20
+
+A list of challenges you faced while working on this assignment and the solutions you found to those challenges.
+
+Conforming to the API.
+Getting Code Count and cyclomatic complexity with Jasmine.
+
+Getting the test script to work.

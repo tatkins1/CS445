@@ -5,6 +5,7 @@ class Show {
         this.name = show_info.name;
         this.show_info=show_info;
         this.datetime = new Date(show_info.date + "T" + show_info.time + ":00Z");
+        this.date=show_info.date.split("-").reduce(a=>a,"");
         this.seating_info = seating_info;
         this.orders={};
         this.donations=[];
@@ -18,9 +19,6 @@ class Show {
     }
     addOrder(order){
         this.orders[order.getId()]=order;
-    }
-    getPrice(section_id) {
-
     }
     getId(){
         return this.id;
@@ -36,7 +34,6 @@ class Show {
     }
 
 
-    //getters and setters for everything
 
     getTimeUntil() {
         var duration = this.datetime.getTime() - new Date().getTime();

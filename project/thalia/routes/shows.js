@@ -4,6 +4,7 @@ let path = require('path');
 let main = require('../main.js');
 let theatre = main.theatre;
 let theatreFactory = main.theatreFactory;
+let Show = require('../classes/show');
 
 router.post('/', function(req, res, next) {
     try {
@@ -16,6 +17,20 @@ router.post('/', function(req, res, next) {
         res.send(req.url).status(500);
     }
 
+});
+router.put('/:wid', function(req, res, next) {
+    try{
+        let show_info = req.body.show_info;
+        let seating_info = req.body.seating_info;
+        let wid = req.params.wid;
+        let fakeShow = new Show (1,show_info,seating_info,theatre.theatre_layout);
+        theatre.editShow(wid,fakeShow);
+        res.send().status(200);
+    }
+    catch (e){
+        console.log(req.url, e)
+        res.send().status(500);
+    }
 });
 router.get('/', function(req, res, next) {
     //viewShows

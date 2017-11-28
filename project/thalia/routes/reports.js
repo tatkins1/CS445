@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 });
 router.get('/:mrid', function(req, res, next) {
     let mrid = req.params.mrid;
+     let report = {};
     if (req.query.show) {
     	let wid =req.query.show;
         switch (mrid) {
@@ -23,29 +24,31 @@ router.get('/:mrid', function(req, res, next) {
                 report = RG.getRevenueReportByShow(wid);
                 break;
             case "803":
-                report = RG.getDonatedTicketsReportByShow(wid);
+                report = RG.getDonatedReportByShow(wid);
                 break;
             default:
 
         }
     } else if (req.query.start) {
+    	let startdate= req.query.start;
+    	let enddate = req.query.end;
+
         switch (mrid) {
             case "801":
-                report = RG.getTotalOccupancyReport();
+                report = RG.getOccupancyReportDate(startdate, enddate);
                 break;
             case "802":
-                report = RG.getTotalRevenueReport();
+                report = RG.getRevenueReportDate(startdate, enddate);
                 break;
             case "803":
-                report = RG.getTotalDonatedTicketsReport();
+                report = RG.getDonatedReportDate(startdate, enddate);
                 break;
             default:
 
         }
     } else {
 
-        let report = {};
-        let output = {};
+       
 
         switch (mrid) {
             case "801":
@@ -55,7 +58,7 @@ router.get('/:mrid', function(req, res, next) {
                 report = RG.getTotalRevenueReport();
                 break;
             case "803":
-                report = RG.getTotalDonatedTicketsReport();
+                report = RG.getDonatedReport();
                 break;
             default:
 
