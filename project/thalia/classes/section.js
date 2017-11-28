@@ -7,10 +7,10 @@ class Section {
                 "name": "Front right",
                 "sid": "001",
                 "layout": [4, 4, 4, 4]
-         }
+         }d
     */
     constructor(section_layout, price) {
-        this.name = section_layout.name;
+        this.name = section_layout.section_name;
         this.sid = section_layout.sid;
         this.seats = makeSeats(section_layout.layout);
         this.price = price;
@@ -80,6 +80,7 @@ class Section {
         }
         return str;
     }
+    
     getSeat(seat_id) {
         var x = seat_id.split("-");
         let i = x[0];

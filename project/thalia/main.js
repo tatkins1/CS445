@@ -3,32 +3,32 @@ let Theatre = require("./classes/theatre");
 let TheatreFactory = require("./classes/theatreFactory");
 let theatre_layout = {
     "123": {
-        "name": "Front right",
+        "section_name": "Front right",
         "sid": "123",
         "layout": [4, 4, 4, 4]
     },
     "124": {
-        "name": "Front centre",
+        "section_name": "Front center",
         "sid": "124",
         "layout": [4, 4, 5, 6]
     },
     "125": {
-        "name": "Front left",
+        "section_name": "Front left",
         "sid": "125",
         "layout": [4, 4, 4, 4]
     },
     "126": {
-        "name": "Main right",
+        "section_name": "Main right",
         "sid": "126",
         "layout": [5, 5, 5]
     },
     "127": {
-        "name": "Main centre",
+        "section_name": "Main center",
         "sid": "127",
         "layout": [6, 7, 8]
     },
     "128": {
-        "name": "Main left",
+        "section_name": "Main left",
         "sid": "128",
         "layout": [5, 5, 5]
     }

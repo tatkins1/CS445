@@ -25,8 +25,7 @@ router.put('/:wid', function(req, res, next) {
         let wid = req.params.wid;
         let fakeShow = new Show(1, show_info, seating_info, theatre.theatre_layout);
         theatre.editShow(wid, fakeShow);
-        console.log(theatre.getShow("Sh1"));
-        res.send().status(200);
+        res.send({}).status(200);
     } catch (e) {
         console.log(req.url, e)
         res.send().status(500);
@@ -76,8 +75,8 @@ router.get('/:wid/sections', function(req, res, next) {
         let sections = show.getSections();
         let output = sections.map(section => {
             return {
-                "sid": section.getName(),
-                "section_name": section.getId(),
+                "sid": section.getId(),
+                "section_name": section.getName(),
                 "price": section.getPrice()
             };
         });
@@ -95,16 +94,53 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
         let show = theatre.getShow(wid);
         let sid = req.params.sid;
         let section = show.getSection(sid);
-        let output = {
-            "sid": section.getName(),
-            "section_name": section.getId(),
-            "price": section.getPrice()
-        };
+        let seating = getSeating(section.seats);
+            let output = {
+                "wid": wid,
+                "show_info": show.show_info,
+                "sid": section.getName(),
+                "section_name": section.getId(),
+                "price": section.getPrice(),
+                "seating": seating
+            };
+            console.log(output);
         res.send(output).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
         res.send(req.url).status(500);
     }
+
+    function getSeating(seats2D) {
+        let final_output = [];
+        for (let i = 0; i < seats2D.length; i++) {
+            let row = (i + 1) + "";
+            let seats = [];
+        
+            for (let j = 0; j < seats2D[i].length; j++) {
+                let seat = (j + 1) + "";
+                let status = "";
+                if (seats2D[i][j] == 1) {
+                    status = "available";
+                } else {
+                    status = "unavailable";
+                }
+                seats.push({
+                    "cid": i + "-" + j,
+                    "seat": seat,
+                    "status": status
+                });
+
+            }
+            final_output.push({
+                "row": row,
+                "seats": seats
+
+            });
+            
+        }
+        return final_output;
+    }
+
 
 });
 router.post('/:wid/donations', function(req, res, next) {
