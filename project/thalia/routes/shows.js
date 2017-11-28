@@ -19,15 +19,15 @@ router.post('/', function(req, res, next) {
 
 });
 router.put('/:wid', function(req, res, next) {
-    try{
+    try {
         let show_info = req.body.show_info;
         let seating_info = req.body.seating_info;
         let wid = req.params.wid;
-        let fakeShow = new Show (1,show_info,seating_info,theatre.theatre_layout);
-        theatre.editShow(wid,fakeShow);
+        let fakeShow = new Show(1, show_info, seating_info, theatre.theatre_layout);
+        theatre.editShow(wid, fakeShow);
+        console.log(theatre.getShow("Sh1"));
         res.send().status(200);
-    }
-    catch (e){
+    } catch (e) {
         console.log(req.url, e)
         res.send().status(500);
     }

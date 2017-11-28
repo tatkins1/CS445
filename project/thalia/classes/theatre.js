@@ -126,7 +126,7 @@ class Theatre {
     }
     editShow(show_ID, show_object) {
        let show= this.getShow(show_ID);
-        for ( i in show_object){
+        for ( let i in show_object){
             if(i!="id"){show[i]=show_object[i]}
         }
     }
