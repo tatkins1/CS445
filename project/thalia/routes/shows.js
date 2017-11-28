@@ -98,12 +98,11 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
             let output = {
                 "wid": wid,
                 "show_info": show.show_info,
-                "sid": section.getName(),
-                "section_name": section.getId(),
+                "sid": section.getId(),
+                "section_name": section.getName(),
                 "price": section.getPrice(),
                 "seating": seating
             };
-            console.log(output);
         res.send(output).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
@@ -136,7 +135,7 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
                 "seats": seats
 
             });
-            
+
         }
         return final_output;
     }

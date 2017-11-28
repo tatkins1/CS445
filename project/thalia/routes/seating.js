@@ -8,46 +8,72 @@ let theatreFactory = main.theatreFactory;
 
 router.get('/', function(req, res, next) {
     try {
+        function selectionProcess(id, options) {
+            for (let i = 0; i < options.length; i++) {
+                if (options[i][0] == id) {
+
+                    return options[i];
+                } 
+
+            }
+            
+                return options[0];
+            
+        }
         if (req.query.show) {
             let wid = req.query.show;
             let sid = req.query.section;
             let show = theatre.getShow(wid);
             let section = show.getSection(sid);
             let count = req.query.count;
-            let option = 0;
             let output = {};
-            if (req.query.starting_seat_id) {
-                option = req.query.starting_seat_id;
-            }
-
+            let option = "";
             let options = (theatre.requestSeats(wid, sid, count));
-            if (options && option < options.length) {
-                let output_seats = options[option].map((e, i) => { return { "cid": e, "seat": 1 + parseInt(e.split("-")[1]), "status": "available" }; });
-                output = {
-                    "wid": wid,
-                    "show_info": show.show_info,
-                    "sid": sid,
-                    "section_name": section.getName(),
-                    "starting_seat_id": option,
-                    "status": "ok",
-                    "seating": {
-                        "row": parseInt(output_seats[0].cid.split("-")[0]) + 1,
-                        "seats": output_seats
+            if (options.length > 0) {
+                if (req.query.starting_seat_id) {
+                    option = req.query.starting_seat_id;
+                    let output_seats = selectionProcess(option, options).map((e, i) => { return { "cid": e, "seat": ""+(1 + parseInt(e.split("-")[1])), "status": "available" }; });
+                    output = {
+                        "wid": wid,
+                        "show_info": show.show_info,
+                        "sid": sid,
+                        "section_name": section.getName(),
+                        "starting_seat_id": output_seats[0].cid,
+                        "status": "ok",
+                        "total_amount":count*section.getPrice(),
+                        "seating": [{
+                            "row": ""+(parseInt(output_seats[0].cid.split("-")[0]) + 1),
+                            "seats": output_seats
+                        }]
                     }
+                } else {
+                    let output_seats=options[0].map((e, i) => { return { "cid": e, "seat": ""+(1 + parseInt(e.split("-")[1])), "status": "available" }; });
+                    output = {
+                        "wid": wid,
+                        "show_info": show.show_info,
+                        "sid": sid,
+                        "section_name": section.getName(),
+                        "starting_seat_id": output_seats[0].cid,
+                        "status": "ok",
+                        "total_amount":count*section.getPrice(),
+                        "seating": [{
+                            "row": ""+(parseInt(output_seats[0].cid.split("-")[0]) + 1),
+                            "seats": output_seats
+                        }]
+                    }
+
                 }
-                console.log(output);
             } else {
                 output = {
                     "wid": wid,
                     "show_info": show.show_info,
                     "sid": sid,
                     "section_name": section.getName(),
-                    "starting_seat_id": option,
+                    "starting_seat_id": "0-0",
                     "status": "Error: " + count + " contiguous seats not available",
                     "seating": []
                 };
             }
-
             res.send(output).status(200);
         } else {
 

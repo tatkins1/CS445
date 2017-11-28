@@ -53,6 +53,7 @@ class Theatre {
 
 
 
+
     }
     purchaseSeats(pid, wid, sid, seat_array, id_factory) {
         //checkseats
