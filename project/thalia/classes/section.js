@@ -80,18 +80,18 @@ class Section {
         }
         return str;
     }
-    
+
     getSeat(seat_id) {
         var x = seat_id.split("-");
-        let i = x[0];
-        let j = x[1];
+        let i = parseInt(x[0]);
+        let j = parseInt(x[1]);
         return this.seats[i][j];
 
     }
     bookSeat(seat_id) {
         var x = seat_id.split("-");
-        let i = x[0];
-        let j = x[1];
+        let i = parseInt(x[0]);
+        let j = parseInt(x[1]);
         if (this.seats[i][j]) {
             this.seats[i][j] = 0;
         }
@@ -107,8 +107,8 @@ class Section {
     isSeatAvailable(seat_id) {
         //seat_id = "1-1"
         var x = seat_id.split("-");
-        let i = x[0];
-        let j = x[1];
+        let i = parseInt(x[0]);
+        let j = parseInt(x[1]);
 
         if (this.seats[i][j] == 1) {
             return true;

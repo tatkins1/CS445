@@ -15,18 +15,23 @@ class Ticket {
             this.order = order;
         }
     }
+    getId(){
+        return this.id;
+    }
+    getStatus(){
+        if (this.status==0){
+            return "open";
+        }
+    }
     getOrder() {
         return this.order;
-    }
-    getStatus() {
-        return this.status;
     }
 
     setStatus(status) {
         this.status = status;
     }
     use() {
-        if (this.getStatus() != -1) {
+        if (this.status != -1) {
             this.setStatus(-1);
             return true;
 
@@ -53,7 +58,7 @@ class Ticket {
 
 
     donate() {
-        var status = this.getStatus();
+        var status = this.status();
         if (status == 0) {
             this.setStatus(1);
             this.donated=true;

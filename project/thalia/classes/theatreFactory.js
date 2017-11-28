@@ -34,7 +34,7 @@ class TheatreFactory {
             this.patron_id++;
             let id = "P" + this.patron_id;
             
-            let patron= new Patron(id, patron_info.name, patron_info.phone, patron_info.email, patron_info.billing_adsress, patron_info.cc_number, patron_info.cc_expiration_date);
+            let patron= new Patron(id, patron_info.name, patron_info.phone, patron_info.email, patron_info.billing_address, patron_info.cc_number, patron_info.cc_expiration_date);
             this.theatre.patrons[patron.getId()]=patron;
             return patron;
         } else {

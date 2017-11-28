@@ -53,13 +53,23 @@ router.get('/', function(req, res, next) {
                 return date > start_date && date < end_date
             });
             let output = orders.map(order => {
+                let patron = theatre.getPatron(order.pid);
+                let patron_info = {
+                    "name": patron.name,
+                    "phone": patron.phone,
+                    "email": patron.email,
+                    "billing_address": patron.billing_address,
+                    "cc_number": "xxxxxxxxxxxx" + patron.cc_num.slice(-4),
+                    "cc_expiration_date": patron.cc_exp
+                }
                 return {
                     "oid": order.getId(),
                     "wid": order.wid,
                     "show_info": theatre.getShow(order.wid).show_info,
                     "date_ordered": order.date,
                     "order_amount": order.getTotal(),
-                    "tickets": order.tickets.map(e => { return e.id })
+                    "number_of_tickets": order.tickets.length,
+                    "patron_info": patron_info
                 };
 
             });
@@ -71,15 +81,32 @@ router.get('/', function(req, res, next) {
     } else {
         try {
             let orders = theatre.getAllOrders();
+
             let output = orders.map(order => {
+                let patron = theatre.getPatron(order.pid);
+                let patron_info = {
+                    "name": patron.name,
+                    "phone": patron.phone,
+                    "email": patron.email,
+                    "billing_address": patron.billing_address,
+                    "cc_number": "xxxxxxxxxxxx" + patron.cc_num.slice(-4),
+                    "cc_expiration_date": patron.cc_exp
+                }
                 return {
+
+
+
                     "oid": order.getId(),
                     "wid": order.wid,
                     "show_info": theatre.getShow(order.wid).show_info,
                     "date_ordered": order.date,
                     "order_amount": order.getTotal(),
-                    "tickets": order.tickets.map(e => { return e.id })
-                };
+                    "number_of_tickets": order.tickets.length,
+                    "patron_info": patron_info
+                }
+
+
+
 
             });
             res.send(output).status(200);
@@ -97,14 +124,30 @@ router.get('/:oid', function(req, res, next) {
     try {
         let oid = req.params.oid;
         let order = theatre.getOrder(oid);
-        console.log(order);
+        let patron = theatre.getPatron(order.pid);
+        let patron_info = {
+            "name": patron.name,
+            "phone": patron.phone,
+            "email": patron.email,
+            "billing_address": patron.billing_address,
+            "cc_number": "xxxxxxxxxxxx" + patron.cc_num.slice(-4),
+            "cc_expiration_date": patron.cc_exp
+        }
+        let tickets = order.tickets.map(t => {
+            return {
+                "tid": t.getId(),
+                "status": t.getStatus()
+            };
+        });
         let output = {
             "oid": order.getId(),
             "wid": order.wid,
             "show_info": theatre.getShow(order.wid).show_info,
             "date_ordered": order.date,
             "order_amount": order.getTotal(),
-            "tickets": order.tickets.map(e => { return e.id })
+            "number_of_tickets": order.tickets.length,
+            "patron_info": patron_info,
+            "tickets": tickets
         }
         res.send(output).status(200);
     } catch (e) {

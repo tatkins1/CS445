@@ -24,6 +24,9 @@ class Theatre {
     getPatron(pid) {
         return this.patrons[pid];
     }
+    addPatron(){
+
+    }
     getPatrons(){
         return Object.values(this.patrons);
     }
@@ -56,9 +59,7 @@ class Theatre {
 
     }
     purchaseSeats(pid, wid, sid, seat_array, id_factory) {
-        //checkseats
-        //bookseats
-        //return order
+    
         var patron = this.getPatron(pid);
         var show = this.getShow(wid);
         var section = show.getSection(sid);
