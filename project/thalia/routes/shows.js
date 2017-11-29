@@ -94,35 +94,38 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
         let show = theatre.getShow(wid);
         let sid = req.params.sid;
         let section = show.getSection(sid);
-        let seating = getSeating(section.seats);
-            let output = {
-                "wid": wid,
-                "show_info": show.show_info,
-                "sid": section.getId(),
-                "section_name": section.getName(),
-                "price": section.getPrice(),
-                "seating": seating
-            };
+        let seating = getSeating(section.seats, sid, theatre);
+        let output = {
+            "wid": wid,
+            "show_info": show.show_info,
+            "sid": section.getId(),
+            "section_name": section.getName(),
+            "price": section.getPrice(),
+            "seating": seating
+        };
+        console.log(output);
+        console.log(seating);
         res.send(output).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
         res.send(req.url).status(500);
     }
 
-    function getSeating(seats2D) {
+    function getSeating(seats2D, sid, theatre) {
         let final_output = [];
         for (let i = 0; i < seats2D.length; i++) {
-            let row = (i + 1) + "";
+            let row = (theatre.theatre_layout[sid].row[i]) + "";
             let seats = [];
-        
+
             for (let j = 0; j < seats2D[i].length; j++) {
-                let seat = (j + 1) + "";
+                let seat = (theatre.theatre_layout[sid].col[i] + j)+"";
                 let status = "";
                 if (seats2D[i][j] == 1) {
                     status = "available";
                 } else {
                     status = "unavailable";
                 }
+                console.log(seat);
                 seats.push({
                     "cid": i + "-" + j,
                     "seat": seat,
