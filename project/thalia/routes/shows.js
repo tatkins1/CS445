@@ -103,8 +103,7 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
             "price": section.getPrice(),
             "seating": seating
         };
-        console.log(output);
-        console.log(seating);
+       
         res.send(output).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
@@ -123,9 +122,8 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
                 if (seats2D[i][j] == 1) {
                     status = "available";
                 } else {
-                    status = "unavailable";
+                    status = "sold";
                 }
-                console.log(seat);
                 seats.push({
                     "cid": i + "-" + j,
                     "seat": seat,
