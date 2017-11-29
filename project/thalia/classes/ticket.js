@@ -22,6 +22,9 @@ class Ticket {
         if (this.status==0){
             return "open";
         }
+        if(this.status==1){
+            return "donated";
+        }
     }
     getOrder() {
         return this.order;
@@ -58,7 +61,7 @@ class Ticket {
 
 
     donate() {
-        var status = this.status();
+        var status = this.status;
         if (status == 0) {
             this.setStatus(1);
             this.donated=true;

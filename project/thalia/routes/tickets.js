@@ -43,15 +43,16 @@ router.post('/donations', function(req, res, next) {
     try {
         let ticket_ids = req.body.tickets;
         let patrons = theatre.getPatrons()
-        tickets = ticket_ids.map(tid => {
+        let tickets = ticket_ids.map(tid => {
             return findTicket(patrons, tid);
         });
         let patron = theatre.getPatron(tickets[0].pid);
         theatre.donateTickets(patron, tickets);
-        res.send({ "tickets": ticket_ids }).status(200);
+
+        res.send({}).status(201);
     } catch (e) {
         console.log("Error:", req.url, e);
-        res.send(req.url).status(500);
+        res.send(req.url).status(400);
     }
 
 });

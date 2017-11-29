@@ -50,7 +50,8 @@ router.get('/', function(req, res, next) {
                 let month = (o.date.getMonth() + 1) + "";
                 let date = year + month + day;
                 date = parseInt(date);
-                return date > start_date && date < end_date
+                
+                return date >= start_date && date <= end_date
             });
             let output = orders.map(order => {
                 let patron = theatre.getPatron(order.pid);

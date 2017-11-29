@@ -21,6 +21,7 @@ router.get('/:mrid', function(req, res, next) {
                 report = RG.getOccupancyReportByShow(wid);
                 break;
             case "802":
+            console.log("rane");
                 report = RG.getRevenueReportByShow(wid);
                 break;
             case "803":
@@ -47,8 +48,6 @@ router.get('/:mrid', function(req, res, next) {
 
         }
     } else {
-
-       
 
         switch (mrid) {
             case "801":

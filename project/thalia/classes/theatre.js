@@ -7,8 +7,16 @@ class Theatre {
         this.layout_map = layout_map;
         this.patrons = {};
         this.reports = {};
+        //this.donations={};
+
 
     }
+   /* addDonations(donation){
+        this.donations[donation.id]=donation;
+    }
+    getDonations(did){
+        return this.donations[did];
+    }*/
     getShows() {
         return Object.values(this.shows);
     }
@@ -81,14 +89,17 @@ class Theatre {
         show.addOrder(order);
         return order;
     }
-    donateTickets(patron,tickets) {
+    donateTickets(patron, tickets) {
         tickets = tickets.filter(t => {
             return t.isDonatable();
         });
         tickets.forEach(t => {
             t.donate();
             this.getShow(t.wid).addDonation(t);
+            this.getShow(t.wid).getSection(t.sid).setSeatD(t.seatid);
+            
         });
+        this.getShow(tickets[0].wid).resolveSubscribers(tickets);
         patron.tickets = patron.tickets.filter(t => {
             for (let i = 0; i < tickets; i++) {
                 if (tickets[i].id == t.id) {
@@ -97,8 +108,7 @@ class Theatre {
             }
             return true;
         });
-        //NotifySubscriber();
-
+        
     }
     getAllOrders(){
         let orders=[];

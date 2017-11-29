@@ -2,6 +2,7 @@ let Show = require("./show");
 let Order = require("./order");
 let Patron = require("./patron");
 let Ticket = require("./ticket");
+let Subscription = require("./subscription");
 
 class TheatreFactory {
     constructor(theatre) {
@@ -10,6 +11,7 @@ class TheatreFactory {
         this.ticket_id = 0;
         this.order_id = 0;
         this.patron_id = 0;
+        this.subscription_id=0;
     }
     createShow(show_info, seating_info) {
         this.show_id++;
@@ -27,6 +29,14 @@ class TheatreFactory {
         this.order_id++;
         let id = "O" + this.order_id;
         return new Order(id, wid, sid, pid, tickets);
+    }
+    createSubscription(wid, patron_info, count){
+        this.subscription_id++;
+        let id = "D"+ this.subscription_id;
+        let patron = this.createPatron(patron_info);
+        let subscription =new Subscription(id,wid,patron_info,patron.getId(),count);
+        this.theatre.getShow(wid).addSubscription(subscription);
+        return subscription;
     }
     createPatron(patron_info) {
         if (checkCC(patron_info.cc_number, patron_info.cc_expiration_date)) {

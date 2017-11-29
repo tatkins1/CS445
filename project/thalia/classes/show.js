@@ -1,39 +1,76 @@
 let Section = require("./section");
 class Show {
     constructor(id, show_info, seating_info, theatre_layout) {
-        this.id=id;
+        this.id = id;
         this.name = show_info.name;
-        this.show_info=show_info;
+        this.show_info = show_info;
         this.datetime = new Date(show_info.date + "T" + show_info.time + ":00Z");
-        this.date=show_info.date.split("-").reduce(a=>a,"");
+        this.date = show_info.date.split("-").reduce(a => a, "");
         this.seating_info = seating_info;
-        this.orders={};
-        this.donations=[];
-        this.subscribers=[];
+        this.orders = {};
+        this.donations = [];
+        this.subscriptions = [];
+        //this.tickets={};
         this.sections = seating_info.map(e => {
             return new Section(theatre_layout[e.sid], e.price);
         });
     }
-    addDonation(donation){
+    /* addTicket(ticket){
+         return this.tickets[tickets.id]=ticket;
+
+     }
+     getTicket(tid){
+         return this.tickets[tid];
+     }*/
+    addDonation(donation) {
         this.donations.push(donation);
     }
-    addOrder(order){
-        this.orders[order.getId()]=order;
+    getDonation(did) {
+        return this.donations.find(d => {
+            return d.id == did;
+        });
     }
-    getId(){
+    addOrder(order) {
+        this.orders[order.getId()] = order;
+    }
+    getId() {
         return this.id;
     }
-    addSubscriber(subscriber){
-        this.subscribers.push(subscriber);
+    addSubscription(subscription) {
+        this.subscriptions.push(subscription);
     }
-    getOrder(oid){
+    getSubscription(sub_id) {
+        return this.subscriptions.find(s => {
+            return s.id == sub_id;
+        });
+    }
+    getOrder(oid) {
         return this.orders[oid];
     }
-    getOrders(){
+    getOrders() {
         return Object.values(this.orders);
     }
 
+    resolveSubscribers(tickets) {
+        let i = 0;
+        while (tickets.length > 0 && i < this.subscriptions.length) {
 
+            if (this.subscriptions[i].count <= tickets.length && this.subscriptions[i].count != this.subscriptions[i].tickets.length) {
+                for (let j = 0; j < this.subscriptions[i].count; j++) {
+                    this.subscriptions[i].tickets.push(tickets.shift());
+                }
+
+            } else {
+                while (tickets.length > 0 && this.subscriptions[i].count != this.subscriptions[i].tickets.length) {
+                    this.subscriptions[i].tickets.push(tickets.pop());
+                }
+            }
+            this.subscriptions[i].status = "assigned";
+            i++;
+        }
+
+
+    }
 
     getTimeUntil() {
         var duration = this.datetime.getTime() - new Date().getTime();

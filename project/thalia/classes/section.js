@@ -96,12 +96,12 @@ class Section {
             this.seats[i][j] = 0;
         }
     }
-    setSeat(seat_id) {
+    setSeatD(seat_id) {
         var x = seat_id.split("-");
         let i = x[0];
         let j = x[1];
         if (this.seats[i][j]) {
-            this.seats[i][j] = 0;
+            this.seats[i][j] = -1;
         }
     }
     isSeatAvailable(seat_id) {

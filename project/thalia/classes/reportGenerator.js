@@ -67,7 +67,7 @@ class ReportGenerator {
 
         });
         let show_reports = shows.map(show => {
-            return this.getDonatedReportByShow(show.id);
+            return this.getDonatedReportByShow1(show.id);
         });
         let report = {
             "mrid": "803",
@@ -104,6 +104,25 @@ class ReportGenerator {
         return report;
 
     }
+     getDonatedReportByShow1(show_id) {
+        let show = this.theatre.getShow(show_id);
+        let total_seats = getTotalSeats(show);
+        let sold_seats = getSoldSeats(show);
+        let donated_seats = getDonatedTickets(show);
+        let donated_used = getDonatedUsedTickets(show);
+        let donated_used_value = getDonatedUsedValue(show);
+        let report = {
+            "wid": show_id,
+            "show_info": show.show_info,
+            "seats_available": total_seats,
+            "seats_sold": sold_seats,
+            "donated_tickets": donated_seats,
+            "donated_and_used_tickets": donated_used,
+            "donated_and_used_value": donated_used_value
+        }
+        return report;
+
+    }
     getTotalOccupancyReport() {
         let shows = this.theatre.getShows();
         let num_shows = shows.length;
@@ -119,7 +138,7 @@ class ReportGenerator {
         let total_occupancy = sold_seats * 100 / total_seats;
 
         let show_reports = shows.map(show => {
-            return this.getOccupancyReportByShow(show.id);
+            return this.getOccupancyReportByShow1(show.id);
         });
         let report = {
             "mrid": "801",
@@ -150,6 +169,20 @@ class ReportGenerator {
         }
         return report;
     }
+    getOccupancyReportByShow1(show_id) {
+        let show = this.theatre.getShow(show_id);
+        let total_seats = getTotalSeats(show);
+        let sold_seats = getSoldSeats(show);
+        let total_occupancy = sold_seats * 100 / total_seats;
+        let report = {
+            "wid": show_id,
+            "show_info": show.show_info,
+            "seats_available": total_seats,
+            "seats_sold": sold_seats,
+            "occupancy": total_occupancy
+        }
+        return report;
+    }
 
     getTotalRevenueReport() {
         let shows = this.theatre.getShows();
@@ -165,12 +198,11 @@ class ReportGenerator {
             sold_seats += getSoldSeats(show);
             total_revenue += getShowRevenue(show);
         });
-
         let show_reports = shows.map(show => {
-            return this.getRevenueReportByShow(show.id);
+            return this.getRevenueReportByShow1(show.id);
         });
         let report = {
-            "mrid": "801",
+            "mrid": "802",
             "name": "Revenue report",
             "start_date": "",
             "end_date": "",
@@ -181,6 +213,7 @@ class ReportGenerator {
             "shows": show_reports
 
         }
+        console.log(report);
         return report;
 
     }
@@ -189,12 +222,46 @@ class ReportGenerator {
         let total_seats = getTotalSeats(show);
         let sold_seats = getSoldSeats(show);
         let revenue = getShowRevenue(show);
+        let sections=show.getSections().map(s=>{
+            return {
+                "sid": s.sid,
+                "section_name":s.name,
+                "section_price": s.price,
+                "seats_available": s.getNumAvailableSeats(),
+                "seats_sold": getSectionSoldSeats(s),
+                "section_revenue": getSectionRevenue(s)
+            };
+        });
+        console.log(sections);
         let report = {
+    "mrid": "802",
+    "name": "Revenue from ticket sales",
+    "total_shows": 1,
+    "total_seats": total_seats,
+    "sold_seats": sold_seats,
+    "overall_revenue": revenue,
+    "shows": [{
+        "wid": show_id,
+        "show_info": show.show_info,
+        "sections": sections
+  
+    }]
+}
+    console.log(report)
+        return report;
+    }
+    getRevenueReportByShow1(show_id) {
+        let show = this.theatre.getShow(show_id);
+        let total_seats = getTotalSeats(show);
+        let sold_seats = getSoldSeats(show);
+        let revenue = getShowRevenue(show);
+        let report = {
+            
             "wid": show_id,
             "show_info": show.show_info,
             "seats_available": total_seats,
             "seats_sold": sold_seats,
-            "occupancy": revenue
+            "overall_occupancy": revenue
         }
         return report;
     }
@@ -247,14 +314,15 @@ function getShowRevenue(show) {
     }, 0);
 }
 
-
-
-
-
-
-
-
-
+function getSectionSoldSeats(section) {
+   return getSectionTotalSeats(section)-section.getNumAvailableSeats();
+}
+function getSectionTotalSeats(section) {
+    return section.getTotalSeats();
+}
+function getSectionRevenue(section) {
+    return getSectionSoldSeats(section)*section.price;
+}
 
 function getShowRevenueDate(show, end, start) {
     let start_date = parseInt(start);

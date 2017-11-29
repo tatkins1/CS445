@@ -103,7 +103,7 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
             "price": section.getPrice(),
             "seating": seating
         };
-       
+
         res.send(output).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
@@ -117,10 +117,12 @@ router.get('/:wid/sections/:sid', function(req, res, next) {
             let seats = [];
 
             for (let j = 0; j < seats2D[i].length; j++) {
-                let seat = (theatre.theatre_layout[sid].col[i] + j)+"";
+                let seat = (theatre.theatre_layout[sid].col[i] + j) + "";
                 let status = "";
                 if (seats2D[i][j] == 1) {
                     status = "available";
+                } else if (seats2D[i][j] == -1) {
+                    status = "donated";
                 } else {
                     status = "sold";
                 }
@@ -150,9 +152,8 @@ router.post('/:wid/donations', function(req, res, next) {
         let count = req.body.count;
         let patron_info = req.body.patron_info;
         let show = theatre.getShow(wid);
-        let patron = theatreFactory.createPatron(patron_info);
-        //patron.donate(theatre,tickets);
-        res.send().status(200);
+        let subscription = theatreFactory.createSubscription(wid, patron_info, count);
+        res.send({ "did": subscription.id }).status(200);
     } catch (e) {
         console.log("Error:", req.url, e);
         res.send(req.url).status(500);
@@ -163,9 +164,21 @@ router.get('/:wid/donations/:did', function(req, res, next) {
     try {
         let wid = req.params.wid;
         let show = theatre.getShow(wid);
+        let sub_id = req.params.did;
+        let subscription = show.getSubscription(sub_id);
+        let output = {
+            "did": subscription.id,
+            "wid": subscription.wid,
+            "count": subscription.count,
+            "status": subscription.status,
+            "tickets": subscription.tickets.map(t=>t.id),
+            "patron_info": subscription.patron_info
+
+        }
+        res.send(output).status(201);
     } catch (e) {
         console.log("Error:", req.url, e);
-        res.send(req.url).status(500);
+        res.send(req.url).status(400);
     }
 
 });
