@@ -23,3 +23,4 @@ The number of hours you spent preparing your submission: 40
 Writing boundary objects to conforming to the API after building the project almost irrespective of the api.
 Getting Code Count and cyclomatic complexity with Jasmine.
 Getting the test script to work.
+Sticking to TDD with approaching deadline.
